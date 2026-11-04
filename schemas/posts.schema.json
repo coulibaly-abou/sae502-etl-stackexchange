@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sae502.local/schemas/posts.schema.json",
+  "title": "Modèle intermédiaire — une ligne de posts.jsonl (version 1.0)",
+  "type": "object",
+  "required": [
+    "id",
+    "post_type_id",
+    "parent_id",
+    "accepted_answer_id",
+    "owner_user_id",
+    "owner_display_name",
+    "last_editor_user_id",
+    "last_editor_display_name",
+    "title",
+    "body",
+    "tags",
+    "score",
+    "view_count",
+    "answer_count",
+    "comment_count",
+    "favorite_count",
+    "creation_date",
+    "last_edit_date",
+    "last_activity_date",
+    "closed_date"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "Identifiant du post — XML : Posts.xml / Id",
+      "type": "integer"
+    },
+    "post_type_id": {
+      "description": "Type : 1 question, 2 réponse, 4 extrait de tag, 5 wiki de tag, 7 page d'aide — XML : Posts.xml / PostTypeId",
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "parent_id": {
+      "description": "Pour une réponse : id de la question — XML : Posts.xml / ParentId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "accepted_answer_id": {
+      "description": "Pour une question : id de la réponse acceptée — XML : Posts.xml / AcceptedAnswerId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "owner_user_id": {
+      "description": "Auteur (users.id) ; null si le compte a été supprimé — XML : Posts.xml / OwnerUserId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "owner_display_name": {
+      "description": "Nom de l'auteur quand owner_user_id est absent — XML : Posts.xml / OwnerDisplayName",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "last_editor_user_id": {
+      "description": "Dernier éditeur (users.id) — XML : Posts.xml / LastEditorUserId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "last_editor_display_name": {
+      "description": "Nom du dernier éditeur quand il n'est pas identifié — XML : Posts.xml / LastEditorDisplayName",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "title": {
+      "description": "Titre (questions uniquement) — XML : Posts.xml / Title",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "body": {
+      "description": "Contenu en HTML rendu — XML : Posts.xml / Body",
+      "type": "string"
+    },
+    "tags": {
+      "description": "Tags de la question, liste ordonnée (XML : \"<a><b>\") — XML : Posts.xml / Tags",
+      "anyOf": [
+        {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^<>|]+$"
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "score": {
+      "description": "Score (votes positifs - votes négatifs) — XML : Posts.xml / Score",
+      "type": "integer"
+    },
+    "view_count": {
+      "description": "Nombre de vues (questions uniquement) — XML : Posts.xml / ViewCount",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "answer_count": {
+      "description": "Nombre de réponses (questions uniquement) — XML : Posts.xml / AnswerCount",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "comment_count": {
+      "description": "Nombre de commentaires — XML : Posts.xml / CommentCount",
+      "type": "integer",
+      "minimum": 0
+    },
+    "favorite_count": {
+      "description": "Ancien compteur de favoris — XML : Posts.xml / FavoriteCount",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "creation_date": {
+      "description": "Date de création — XML : Posts.xml / CreationDate",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$"
+    },
+    "last_edit_date": {
+      "description": "Date de la dernière modification du contenu — XML : Posts.xml / LastEditDate",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "last_activity_date": {
+      "description": "Date de la dernière activité — XML : Posts.xml / LastActivityDate",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$"
+    },
+    "closed_date": {
+      "description": "Date de fermeture de la question — XML : Posts.xml / ClosedDate",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "post_type_id": {
+            "const": 1
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "title": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "tags": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "view_count": {
+            "not": {
+              "type": "null"
+            }
+          },
+          "answer_count": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "post_type_id": {
+            "not": {
+              "const": 1
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "title": {
+            "type": "null"
+          },
+          "tags": {
+            "type": "null"
+          },
+          "view_count": {
+            "type": "null"
+          },
+          "answer_count": {
+            "type": "null"
+          },
+          "accepted_answer_id": {
+            "type": "null"
+          },
+          "closed_date": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "post_type_id": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "parent_id": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "parent_id": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "owner_user_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "owner_display_name": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

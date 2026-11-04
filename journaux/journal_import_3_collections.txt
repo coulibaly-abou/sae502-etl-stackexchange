@@ -1,0 +1,160 @@
+=== Import du 15/10/2026 15:30:25 ===
+Modèle intermédiaire : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml (source : xml, 20515 lignes)
+Documents construits : users 11961, posts 1717, tags 214
+
+Base stack_exchange_3col :
+  users  créée avec son validateur $jsonSchema
+  posts  créée avec son validateur $jsonSchema
+  tags   créée avec son validateur $jsonSchema
+
+Insertion :
+  users  insérés= 11961  déjà présents=     0  rejetés=0
+  posts  insérés=  1717  déjà présents=     0  rejetés=0
+  tags   insérés=   214  déjà présents=     0  rejetés=0
+
+Effectifs :
+  users  attendus= 11961  MongoDB= 11961  OK
+  posts  attendus=  1717  MongoDB=  1717  OK
+  tags   attendus=   214  MongoDB=   214  OK
+
+Comparaison document par document (attendu <-> MongoDB) :
+  users  absents=0  différents=0 []  en trop=0  OK
+  posts  absents=0  différents=0 []  en trop=0  OK
+  tags   absents=0  différents=0 []  en trop=0  OK
+
+Références entre collections :
+  auteurs, éditeurs -> users._id       orphelines : 0  OK
+  posts.tags[] -> tags.tag_name        orphelines : 0  OK
+  tags extrait / wiki -> posts._id     orphelines : 0  OK
+  accepted_answer_id -> answers[]      orphelines : 0  OK
+
+Modèle intermédiaire retrouvé à partir de MongoDB :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Test du validateur : OK (document invalide refusé)
+
+IMPORT VALIDÉ.
+
+=== Import du 15/10/2026 15:30:34 ===
+Modèle intermédiaire : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml (source : xml, 20515 lignes)
+Documents construits : users 11961, posts 1717, tags 214
+
+Base stack_exchange_3col :
+  users  existe déjà (11961 documents) : ni vidée ni modifiée
+  posts  existe déjà (1717 documents) : ni vidée ni modifiée
+  tags   existe déjà (214 documents) : ni vidée ni modifiée
+
+Insertion :
+  users  insérés=     0  déjà présents= 11961  rejetés=0
+  posts  insérés=     0  déjà présents=  1717  rejetés=0
+  tags   insérés=     0  déjà présents=   214  rejetés=0
+
+Effectifs :
+  users  attendus= 11961  MongoDB= 11961  OK
+  posts  attendus=  1717  MongoDB=  1717  OK
+  tags   attendus=   214  MongoDB=   214  OK
+
+Comparaison document par document (attendu <-> MongoDB) :
+  users  absents=0  différents=0 []  en trop=0  OK
+  posts  absents=0  différents=0 []  en trop=0  OK
+  tags   absents=0  différents=0 []  en trop=0  OK
+
+Références entre collections :
+  auteurs, éditeurs -> users._id       orphelines : 0  OK
+  posts.tags[] -> tags.tag_name        orphelines : 0  OK
+  tags extrait / wiki -> posts._id     orphelines : 0  OK
+  accepted_answer_id -> answers[]      orphelines : 0  OK
+
+Modèle intermédiaire retrouvé à partir de MongoDB :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Test du validateur : OK (document invalide refusé)
+
+IMPORT VALIDÉ.
+
+=== Import du 21/10/2026 14:58:23 ===
+Modèle intermédiaire : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml (source : xml, 20515 lignes)
+Documents construits : users 11961, posts 1717, tags 214
+
+Base stack_exchange_3col :
+  users  existe déjà (11961 documents) : ni vidée ni modifiée
+  posts  existe déjà (1717 documents) : ni vidée ni modifiée
+  tags   existe déjà (214 documents) : ni vidée ni modifiée
+
+Insertion :
+  users  insérés=     0  déjà présents= 11961  rejetés=0
+  posts  insérés=     0  déjà présents=  1717  rejetés=0
+  tags   insérés=     0  déjà présents=   214  rejetés=0
+
+Effectifs :
+  users  attendus= 11961  MongoDB= 11961  OK
+  posts  attendus=  1717  MongoDB=  1717  OK
+  tags   attendus=   214  MongoDB=   214  OK
+
+Comparaison document par document (attendu <-> MongoDB) :
+  users  absents=0  différents=0 []  en trop=0  OK
+  posts  absents=0  différents=0 []  en trop=0  OK
+  tags   absents=0  différents=0 []  en trop=0  OK
+
+Références entre collections :
+  auteurs, éditeurs -> users._id       orphelines : 0  OK
+  posts.tags[] -> tags.tag_name        orphelines : 0  OK
+  tags extrait / wiki -> posts._id     orphelines : 0  OK
+  accepted_answer_id -> answers[]      orphelines : 0  OK
+
+Modèle intermédiaire retrouvé à partir de MongoDB :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Test du validateur : OK (document invalide refusé)
+
+IMPORT VALIDÉ.
+
+=== Import du 29/10/2026 23:31:10 ===
+Modèle intermédiaire : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml (source : xml, 20515 lignes)
+Documents construits : users 11961, posts 1717, tags 214
+
+Base stack_exchange_3col :
+  users  existe déjà (11961 documents) : ni vidée ni modifiée
+  posts  existe déjà (1717 documents) : ni vidée ni modifiée
+  tags   existe déjà (214 documents) : ni vidée ni modifiée
+
+Insertion :
+  users  insérés=     0  déjà présents= 11961  rejetés=0
+  posts  insérés=     0  déjà présents=  1717  rejetés=0
+  tags   insérés=     0  déjà présents=   214  rejetés=0
+
+Effectifs :
+  users  attendus= 11961  MongoDB= 11961  OK
+  posts  attendus=  1717  MongoDB=  1717  OK
+  tags   attendus=   214  MongoDB=   214  OK
+
+Comparaison document par document (attendu <-> MongoDB) :
+  users  absents=0  différents=0 []  en trop=0  OK
+  posts  absents=0  différents=0 []  en trop=0  OK
+  tags   absents=0  différents=0 []  en trop=0  OK
+
+Références entre collections :
+  auteurs, éditeurs -> users._id       orphelines : 0  OK
+  posts.tags[] -> tags.tag_name        orphelines : 0  OK
+  tags extrait / wiki -> posts._id     orphelines : 0  OK
+  accepted_answer_id -> answers[]      orphelines : 0  OK
+
+Modèle intermédiaire retrouvé à partir de MongoDB :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Test du validateur : OK (document invalide refusé)
+
+IMPORT VALIDÉ.
+

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sae502.local/schemas/tags.schema.json",
+  "title": "Modèle intermédiaire — une ligne de tags.jsonl (version 1.0)",
+  "type": "object",
+  "required": [
+    "id",
+    "tag_name",
+    "count",
+    "excerpt_post_id",
+    "wiki_post_id"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "Identifiant du tag — XML : Tags.xml / Id",
+      "type": "integer"
+    },
+    "tag_name": {
+      "description": "Nom du tag (unique) — XML : Tags.xml / TagName",
+      "type": "string"
+    },
+    "count": {
+      "description": "Nombre de questions utilisant le tag — XML : Tags.xml / Count",
+      "type": "integer",
+      "minimum": 0
+    },
+    "excerpt_post_id": {
+      "description": "Post contenant l'extrait du tag (posts.id) — XML : Tags.xml / ExcerptPostId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "wiki_post_id": {
+      "description": "Post contenant le wiki du tag (posts.id) — XML : Tags.xml / WikiPostId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

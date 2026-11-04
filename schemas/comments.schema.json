@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sae502.local/schemas/comments.schema.json",
+  "title": "Modèle intermédiaire — une ligne de comments.jsonl (version 1.0)",
+  "type": "object",
+  "required": [
+    "id",
+    "post_id",
+    "user_id",
+    "user_display_name",
+    "score",
+    "text",
+    "creation_date"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "Identifiant du commentaire — XML : Comments.xml / Id",
+      "type": "integer"
+    },
+    "post_id": {
+      "description": "Post commenté (posts.id) — XML : Comments.xml / PostId",
+      "type": "integer"
+    },
+    "user_id": {
+      "description": "Auteur (users.id) ; null si le compte a été supprimé — XML : Comments.xml / UserId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "user_display_name": {
+      "description": "Nom de l'auteur quand user_id est absent — XML : Comments.xml / UserDisplayName",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "score": {
+      "description": "Score du commentaire — XML : Comments.xml / Score",
+      "type": "integer"
+    },
+    "text": {
+      "description": "Texte du commentaire — XML : Comments.xml / Text",
+      "type": "string"
+    },
+    "creation_date": {
+      "description": "Date de création — XML : Comments.xml / CreationDate",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "user_display_name": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

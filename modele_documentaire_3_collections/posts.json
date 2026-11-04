@@ -1,0 +1,159 @@
+[
+  {
+    "_id": 3674,
+    "post_type_id": 1,
+    "title": "Neural Network example",
+    "body": "<p>I read a lot about this, I understand how it work, but I would like the most simple example you can provide me, because I have no clue how I would make it in code. No matter the language( I would appreciate if it's derived from c), because I'm not here to copy-paste, and understand the essence.</p>\n",
+    "tags": [
+      "neural-networks"
+    ],
+    "score": 2,
+    "view_count": 196,
+    "answer_count": 2,
+    "comment_count": 2,
+    "favorite_count": 3,
+    "owner": {
+      "user_id": 8497
+    },
+    "creation_date": {
+      "$date": "2017-07-18T18:32:59.653Z"
+    },
+    "last_activity_date": {
+      "$date": "2017-07-25T16:08:23.303Z"
+    },
+    "accepted_answer_id": 3681,
+    "comments": [
+      {
+        "comment_id": 4577,
+        "score": 0,
+        "creation_date": {
+          "$date": "2017-07-19T01:52:38.493Z"
+        },
+        "text": "Example of what? Specify what of neural networks you are trying to learn.",
+        "user": {
+          "user_id": 6779
+        }
+      },
+      {
+        "comment_id": 4579,
+        "score": 0,
+        "creation_date": {
+          "$date": "2017-07-19T10:42:13.933Z"
+        },
+        "text": "A very basic one, the first example is one that learns to make math amounts(1+1, 2+4, etc, I didnt learned math in english, sorry). It trains with random operations, and after the training to predict the result.",
+        "user": {
+          "user_id": 8497
+        }
+      }
+    ],
+    "answers": [
+      {
+        "answer_id": 3676,
+        "body": "<p>I think <a href=\"https://cognitivedemons.wordpress.com/2017/07/06/a-neural-network-in-10-lines-of-c-code/\" rel=\"nofollow noreferrer\">this website</a> is the best c-based neural net code for beginners. </p>\n",
+        "score": 4,
+        "comment_count": 0,
+        "owner": {
+          "user_id": 8532
+        },
+        "last_editor": {
+          "user_id": 7550
+        },
+        "creation_date": {
+          "$date": "2017-07-18T20:24:40.870Z"
+        },
+        "last_edit_date": {
+          "$date": "2017-07-25T16:08:23.303Z"
+        },
+        "last_activity_date": {
+          "$date": "2017-07-25T16:08:23.303Z"
+        },
+        "comments": []
+      },
+      {
+        "answer_id": 3681,
+        "body": "<p>Not in C, JS but basically the simplest neural network I could come up with and tried to explain with basic concepts and doodles...</p>\n\n<p><a href=\"https://becominghuman.ai/making-a-simple-neural-network-2ea1de81ec20\" rel=\"nofollow noreferrer\">Making a simple neural network</a> </p>\n",
+        "score": 0,
+        "comment_count": 2,
+        "owner": {
+          "user_id": 3020
+        },
+        "creation_date": {
+          "$date": "2017-07-19T20:25:57.687Z"
+        },
+        "last_activity_date": {
+          "$date": "2017-07-19T20:25:57.687Z"
+        },
+        "comments": [
+          {
+            "comment_id": 4586,
+            "score": 0,
+            "creation_date": {
+              "$date": "2017-07-19T21:56:34.870Z"
+            },
+            "text": "This site is pretty ok, and I have to learn a lot from there! If I dont understand something I will come back, and ask. Again thanks!",
+            "user": {
+              "user_id": 8497
+            }
+          },
+          {
+            "comment_id": 4588,
+            "score": 0,
+            "creation_date": {
+              "$date": "2017-07-20T00:12:31.500Z"
+            },
+            "text": "I would like to add that although the language between neuroscience and neural networks seems to be very similar, it is very dangerous to say that they learn the same way. Lots of people will tell you that they are the same, but always be wary!",
+            "user": {
+              "user_id": 6779
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": 3128,
+    "post_type_id": 5,
+    "body": "<p>Use for questions relating to the interactions of humans and computer systems, including AI's.</p>\n",
+    "score": 0,
+    "comment_count": 0,
+    "owner": {
+      "user_id": 33
+    },
+    "last_editor": {
+      "user_id": 33
+    },
+    "creation_date": {
+      "$date": "2017-04-11T01:09:06.780Z"
+    },
+    "last_edit_date": {
+      "$date": "2017-06-23T00:07:26.307Z"
+    },
+    "last_activity_date": {
+      "$date": "2017-06-23T00:07:26.307Z"
+    },
+    "comments": []
+  },
+  {
+    "_id": 270,
+    "post_type_id": 4,
+    "body": "",
+    "score": 0,
+    "comment_count": 0,
+    "owner": {
+      "user_id": -1
+    },
+    "last_editor": {
+      "user_id": -1
+    },
+    "creation_date": {
+      "$date": "2016-08-03T23:13:25.643Z"
+    },
+    "last_edit_date": {
+      "$date": "2016-08-03T23:13:25.643Z"
+    },
+    "last_activity_date": {
+      "$date": "2016-08-03T23:13:25.643Z"
+    },
+    "comments": []
+  }
+]

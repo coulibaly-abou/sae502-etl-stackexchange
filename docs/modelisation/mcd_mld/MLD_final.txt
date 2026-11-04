@@ -1,0 +1,55 @@
+MLD final — déduit du MCD corrigé (MCD_final.png)
+Traduction SQL : schema.sql
+Notation : clé primaire en premier, # = clé étrangère, * = NULL autorisé
+
+type_post   = (type_id, type_label)
+utilisateur = (user_id, display_name, reputation, user_creation_date, last_access_date, location*, about_me*,
+               views, up_votes, down_votes, age*, profile_image_url*, website_url*)
+account     = (id_account, #user_id)
+tag         = (tag_id, tag_name, tag_count)
+post        = (post_id, body, post_score, comment_count, post_creation_date, last_edit_date*, last_activity_date,
+               last_editor_display_name*, owner_display_name*, #type_id, #user_id*, #editor_user_id*,
+               #extrait_de_tag_id*, #wiki_de_tag_id*)
+question    = (#post_id, title, view_count, answer_count, favorite_count*, closed_date*, #accepted_answer_id*)
+reponse     = (#post_id, #question_id)
+commentaire = (comment_id, comment_text, comment_score, comment_creation_date, user_display_name*, #post_id, #user_id*)
+etiqueter   = (#tag_id, #post_id, position)
+
+
+Passage MCD -> MLD, association par association
+  ÊTRE_DE_TYPE      (post 1,1 – type_post 0,n)    -> post.type_id NOT NULL
+  REDIGER           (post 0,1 – utilisateur 0,n)  -> post.user_id NULL autorisé
+  EDITER EN DERNIER (post 0,1 – utilisateur 0,n)  -> post.editor_user_id NULL autorisé
+  ASSOCIE           (account 1,1 – utilisateur 0,1) -> account.user_id NOT NULL UNIQUE
+  DECRIRE(extrait)  (post 0,1 – tag 0,1)          -> post.extrait_de_tag_id NULL autorisé, UNIQUE
+  DECRIRE(wiki)     (post 0,1 – tag 0,1)          -> post.wiki_de_tag_id NULL autorisé, UNIQUE
+  Héritage X        (question, reponse -> post)   -> question.post_id et reponse.post_id = PK et FK vers post
+  REPONDRE_A        (reponse 1,1 – question 0,n)  -> reponse.question_id NOT NULL
+  ACCEPTER          (question 0,1 – reponse 0,1)  -> question.accepted_answer_id NULL autorisé
+  CONCERNER         (commentaire 1,1 – post 0,n)  -> commentaire.post_id NOT NULL
+  ECRIRE            (commentaire 0,1 – utilisateur 0,n) -> commentaire.user_id NULL autorisé
+  ETIQUETER         (question 1,n – tag 0,n, attribut position) -> table etiqueter, PK (post_id, tag_id)
+
+
+Table par table
+  type_post    référentiel des types de posts ; libellés absents du XML, pré-remplis (1 à 8).
+  utilisateur  Users.xml ; user_id = Id d'origine (dont -1 « Community ») ; display_name non unique.
+  account      compte global du réseau (Users.xml / AccountId) ; un compte <-> un utilisateur de ce site.
+  tag          Tags.xml ; tag_name UNIQUE (les questions citent les tags par leur nom).
+  post         Posts.xml : champs communs à tous les types ; CHECK : user_id ou owner_display_name,
+               jamais les deux (contrainte X1).
+  question     champs propres aux questions (type 1) ; la réponse acceptée doit être une réponse de
+               cette question : FK composée (accepted_answer_id, post_id) -> reponse (post_id, question_id),
+               vérifiée en fin de transaction (référence circulaire avec reponse) (contrainte I1).
+  reponse      réponses (type 2) et leur question parente.
+  commentaire  Comments.xml ; CHECK : exactement un de user_id / user_display_name (contrainte XT1).
+  etiqueter    tags d'une question, avec leur position (1 à 5, unique dans une question).
+
+Contraintes du MCD reportées
+  I1  -> clé étrangère composée question -> reponse (DEFERRABLE INITIALLY DEFERRED)
+  X1  -> CHECK auteur_id_ou_nom sur post
+  XT1 -> CHECK auteur_id_ou_nom_exclusif sur commentaire
+  X2  -> un post ne peut être à la fois extrait et wiki : garanti par les données, non exprimé en SQL
+  C1, C2 -> cohérence type / spécialisation : contrôlée par verification.sql (requête 3)
+  C3  -> CHECK position BETWEEN 1 AND 5 et UNIQUE (post_id, position)
+  C4  -> compteurs conservés, recalculés par verification.sql (requête 8)

@@ -1,0 +1,446 @@
+{
+  "entites": {
+    "users": {
+      "fichier": "users.jsonl",
+      "source_xml": "Users.xml",
+      "champs": [
+        {
+          "nom": "id",
+          "xml": "Id",
+          "type": "integer",
+          "null": false,
+          "description": "Identifiant de l'utilisateur sur le site (-1 = compte système Community)"
+        },
+        {
+          "nom": "account_id",
+          "xml": "AccountId",
+          "type": "integer",
+          "null": true,
+          "description": "Identifiant global du compte sur tout le réseau Stack Exchange"
+        },
+        {
+          "nom": "display_name",
+          "xml": "DisplayName",
+          "type": "string",
+          "null": false,
+          "description": "Nom affiché"
+        },
+        {
+          "nom": "reputation",
+          "xml": "Reputation",
+          "type": "integer >= 0",
+          "null": false,
+          "description": "Score de réputation"
+        },
+        {
+          "nom": "creation_date",
+          "xml": "CreationDate",
+          "type": "string (date)",
+          "null": false,
+          "description": "Date de création du compte"
+        },
+        {
+          "nom": "last_access_date",
+          "xml": "LastAccessDate",
+          "type": "string (date)",
+          "null": false,
+          "description": "Dernier chargement d'une page du site"
+        },
+        {
+          "nom": "location",
+          "xml": "Location",
+          "type": "string",
+          "null": true,
+          "description": "Localisation déclarée"
+        },
+        {
+          "nom": "about_me",
+          "xml": "AboutMe",
+          "type": "string",
+          "null": true,
+          "description": "Présentation du profil (HTML)"
+        },
+        {
+          "nom": "views",
+          "xml": "Views",
+          "type": "integer >= 0",
+          "null": false,
+          "description": "Nombre de consultations du profil"
+        },
+        {
+          "nom": "up_votes",
+          "xml": "UpVotes",
+          "type": "integer >= 0",
+          "null": false,
+          "description": "Nombre de votes positifs émis"
+        },
+        {
+          "nom": "down_votes",
+          "xml": "DownVotes",
+          "type": "integer >= 0",
+          "null": false,
+          "description": "Nombre de votes négatifs émis"
+        },
+        {
+          "nom": "age",
+          "xml": "Age",
+          "type": "integer",
+          "null": true,
+          "description": "Âge déclaré"
+        },
+        {
+          "nom": "profile_image_url",
+          "xml": "ProfileImageUrl",
+          "type": "string",
+          "null": true,
+          "description": "URL de l'image de profil"
+        },
+        {
+          "nom": "website_url",
+          "xml": "WebsiteUrl",
+          "type": "string",
+          "null": true,
+          "description": "URL du site web du profil"
+        }
+      ],
+      "exemple": {
+        "id": 8267,
+        "account_id": null,
+        "display_name": "EJ Hill",
+        "reputation": 1,
+        "creation_date": "2017-07-05T16:15:57.243",
+        "last_access_date": "2017-07-05T16:15:57.243",
+        "location": null,
+        "about_me": null,
+        "views": 0,
+        "up_votes": 0,
+        "down_votes": 0,
+        "age": null,
+        "profile_image_url": "https://graph.facebook.com/10154024797741203/picture?type=large",
+        "website_url": null
+      }
+    },
+    "posts": {
+      "fichier": "posts.jsonl",
+      "source_xml": "Posts.xml",
+      "champs": [
+        {
+          "nom": "id",
+          "xml": "Id",
+          "type": "integer",
+          "null": false,
+          "description": "Identifiant du post"
+        },
+        {
+          "nom": "post_type_id",
+          "xml": "PostTypeId",
+          "type": "integer",
+          "null": false,
+          "description": "Type : 1 question, 2 réponse, 4 extrait de tag, 5 wiki de tag, 7 page d'aide"
+        },
+        {
+          "nom": "parent_id",
+          "xml": "ParentId",
+          "type": "integer",
+          "null": true,
+          "description": "Pour une réponse : id de la question"
+        },
+        {
+          "nom": "accepted_answer_id",
+          "xml": "AcceptedAnswerId",
+          "type": "integer",
+          "null": true,
+          "description": "Pour une question : id de la réponse acceptée"
+        },
+        {
+          "nom": "owner_user_id",
+          "xml": "OwnerUserId",
+          "type": "integer",
+          "null": true,
+          "description": "Auteur (users.id) ; null si le compte a été supprimé"
+        },
+        {
+          "nom": "owner_display_name",
+          "xml": "OwnerDisplayName",
+          "type": "string",
+          "null": true,
+          "description": "Nom de l'auteur quand owner_user_id est absent"
+        },
+        {
+          "nom": "last_editor_user_id",
+          "xml": "LastEditorUserId",
+          "type": "integer",
+          "null": true,
+          "description": "Dernier éditeur (users.id)"
+        },
+        {
+          "nom": "last_editor_display_name",
+          "xml": "LastEditorDisplayName",
+          "type": "string",
+          "null": true,
+          "description": "Nom du dernier éditeur quand il n'est pas identifié"
+        },
+        {
+          "nom": "title",
+          "xml": "Title",
+          "type": "string",
+          "null": true,
+          "description": "Titre (questions uniquement)"
+        },
+        {
+          "nom": "body",
+          "xml": "Body",
+          "type": "string",
+          "null": false,
+          "description": "Contenu en HTML rendu"
+        },
+        {
+          "nom": "tags",
+          "xml": "Tags",
+          "type": "array<string>",
+          "null": true,
+          "description": "Tags de la question, liste ordonnée (XML : \"<a><b>\")"
+        },
+        {
+          "nom": "score",
+          "xml": "Score",
+          "type": "integer",
+          "null": false,
+          "description": "Score (votes positifs - votes négatifs)"
+        },
+        {
+          "nom": "view_count",
+          "xml": "ViewCount",
+          "type": "integer >= 0",
+          "null": true,
+          "description": "Nombre de vues (questions uniquement)"
+        },
+        {
+          "nom": "answer_count",
+          "xml": "AnswerCount",
+          "type": "integer >= 0",
+          "null": true,
+          "description": "Nombre de réponses (questions uniquement)"
+        },
+        {
+          "nom": "comment_count",
+          "xml": "CommentCount",
+          "type": "integer >= 0",
+          "null": false,
+          "description": "Nombre de commentaires"
+        },
+        {
+          "nom": "favorite_count",
+          "xml": "FavoriteCount",
+          "type": "integer >= 0",
+          "null": true,
+          "description": "Ancien compteur de favoris"
+        },
+        {
+          "nom": "creation_date",
+          "xml": "CreationDate",
+          "type": "string (date)",
+          "null": false,
+          "description": "Date de création"
+        },
+        {
+          "nom": "last_edit_date",
+          "xml": "LastEditDate",
+          "type": "string (date)",
+          "null": true,
+          "description": "Date de la dernière modification du contenu"
+        },
+        {
+          "nom": "last_activity_date",
+          "xml": "LastActivityDate",
+          "type": "string (date)",
+          "null": false,
+          "description": "Date de la dernière activité"
+        },
+        {
+          "nom": "closed_date",
+          "xml": "ClosedDate",
+          "type": "string (date)",
+          "null": true,
+          "description": "Date de fermeture de la question"
+        }
+      ],
+      "exemple": {
+        "id": 1,
+        "post_type_id": 1,
+        "parent_id": null,
+        "accepted_answer_id": 3,
+        "owner_user_id": 8,
+        "owner_display_name": null,
+        "last_editor_user_id": 7488,
+        "last_editor_display_name": null,
+        "title": "What is \"backprop\"?",
+        "body": "<p>What does \"backprop\" mean? I've Googled it, but it's showing backpropagation.</p>\n\n<p>Is the \"backprop\" term basically the same as \"backpropagation\" or does it have a different meaning?</p>\n",
+        "tags": [
+          "neural-networks",
+          "definitions",
+          "terminology"
+        ],
+        "score": 5,
+        "view_count": 267,
+        "answer_count": 3,
+        "comment_count": 3,
+        "favorite_count": null,
+        "creation_date": "2016-08-02T15:39:14.947",
+        "last_edit_date": "2017-05-28T13:48:02.003",
+        "last_activity_date": "2017-05-28T13:48:02.003",
+        "closed_date": null
+      }
+    },
+    "comments": {
+      "fichier": "comments.jsonl",
+      "source_xml": "Comments.xml",
+      "champs": [
+        {
+          "nom": "id",
+          "xml": "Id",
+          "type": "integer",
+          "null": false,
+          "description": "Identifiant du commentaire"
+        },
+        {
+          "nom": "post_id",
+          "xml": "PostId",
+          "type": "integer",
+          "null": false,
+          "description": "Post commenté (posts.id)"
+        },
+        {
+          "nom": "user_id",
+          "xml": "UserId",
+          "type": "integer",
+          "null": true,
+          "description": "Auteur (users.id) ; null si le compte a été supprimé"
+        },
+        {
+          "nom": "user_display_name",
+          "xml": "UserDisplayName",
+          "type": "string",
+          "null": true,
+          "description": "Nom de l'auteur quand user_id est absent"
+        },
+        {
+          "nom": "score",
+          "xml": "Score",
+          "type": "integer",
+          "null": false,
+          "description": "Score du commentaire"
+        },
+        {
+          "nom": "text",
+          "xml": "Text",
+          "type": "string",
+          "null": false,
+          "description": "Texte du commentaire"
+        },
+        {
+          "nom": "creation_date",
+          "xml": "CreationDate",
+          "type": "string (date)",
+          "null": false,
+          "description": "Date de création"
+        }
+      ],
+      "exemple": {
+        "id": 130,
+        "post_id": 217,
+        "user_id": null,
+        "user_display_name": "user220",
+        "score": 0,
+        "text": "that's interesting, thanks for the info! Is it theoretically possible to build a knowledge base from the text (using _deductive reasoning_) and to train NNs to generate text from the knowledge base?",
+        "creation_date": "2016-08-03T17:36:58.590"
+      }
+    },
+    "tags": {
+      "fichier": "tags.jsonl",
+      "source_xml": "Tags.xml",
+      "champs": [
+        {
+          "nom": "id",
+          "xml": "Id",
+          "type": "integer",
+          "null": false,
+          "description": "Identifiant du tag"
+        },
+        {
+          "nom": "tag_name",
+          "xml": "TagName",
+          "type": "string",
+          "null": false,
+          "description": "Nom du tag (unique)"
+        },
+        {
+          "nom": "count",
+          "xml": "Count",
+          "type": "integer >= 0",
+          "null": false,
+          "description": "Nombre de questions utilisant le tag"
+        },
+        {
+          "nom": "excerpt_post_id",
+          "xml": "ExcerptPostId",
+          "type": "integer",
+          "null": true,
+          "description": "Post contenant l'extrait du tag (posts.id)"
+        },
+        {
+          "nom": "wiki_post_id",
+          "xml": "WikiPostId",
+          "type": "integer",
+          "null": true,
+          "description": "Post contenant le wiki du tag (posts.id)"
+        }
+      ],
+      "exemple": {
+        "id": 13,
+        "tag_name": "neural-networks",
+        "count": 369,
+        "excerpt_post_id": 1555,
+        "wiki_post_id": 1554
+      }
+    }
+  },
+  "relations": [
+    {
+      "champ": "posts.parent_id",
+      "reference": "posts.id (une question)"
+    },
+    {
+      "champ": "posts.accepted_answer_id",
+      "reference": "posts.id (une réponse de cette question)"
+    },
+    {
+      "champ": "posts.owner_user_id, posts.last_editor_user_id",
+      "reference": "users.id"
+    },
+    {
+      "champ": "posts.tags[]",
+      "reference": "tags.tag_name"
+    },
+    {
+      "champ": "comments.post_id",
+      "reference": "posts.id"
+    },
+    {
+      "champ": "comments.user_id",
+      "reference": "users.id"
+    },
+    {
+      "champ": "tags.excerpt_post_id, tags.wiki_post_id",
+      "reference": "posts.id"
+    }
+  ],
+  "contraintes": [
+    "id unique dans chaque fichier ; tags.tag_name unique",
+    "post_type_id = 1 (question) : title, tags, view_count, answer_count non null",
+    "post_type_id ≠ 1 : title, tags, view_count, answer_count, accepted_answer_id, closed_date null",
+    "post_type_id = 2 (réponse) : parent_id non null ; sinon parent_id null",
+    "owner_user_id et owner_display_name jamais renseignés ensemble ; idem user_id et user_display_name",
+    "accepted_answer_id désigne une réponse dont parent_id est la question"
+  ]
+}

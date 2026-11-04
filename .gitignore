@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+~$*
+intermediaire/postgresql/
+intermediaire/mongodb/
+/journal_*.txt

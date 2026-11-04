@@ -1,0 +1,10 @@
+Modele MLD (version validée par l'enseignante)
+
+utilisateur = (user_id INT, account_id INT, display_name VARCHAR(50), reputation INT, user_creation_date DATETIME, last_access_date DATETIME, location VARCHAR(50), about_me TEXT, views INT, up_votes INT, down_votes INT, age INT, profile_image_url VARCHAR(50), website_url VARCHAR(50));
+tag = (tag_id INT, tag_name VARCHAR(50), tag_count INT);
+type_post = (type_id INT, type_label TEXT);
+post = (post_id INT, body TEXT, post_score INT, comment_count INT, post_creation_date DATETIME, last_edit_date DATETIME, last_activity_date DATETIME, last_editor_display_name VARCHAR(50), owner_display_name VARCHAR(50), #type_id, #tag_id*, #tag_id_1*, #user_id, #user_id_1*);
+commentaire = (comment_id INT, comment_text TEXT, comment_score INT, comment_creation_date DATETIME, user_display_name VARCHAR(50), #post_id, #user_id*);
+question = (#post_id_1, title VARCHAR(50), view_count INT, answer_count INT, favorite_count INT, closed_date DATETIME, #(#post_id)*); Attention ! Références circulaires
+reponse = (#post_id_1, est_acceptee VARCHAR(50), #(#post_id)); Attention ! Références circulaires
+etiqueter = (#tag_id, #(#post_id));

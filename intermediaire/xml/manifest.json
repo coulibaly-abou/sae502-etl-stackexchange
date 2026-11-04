@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "source": "xml",
+  "created_at": "2026-10-21T12:58:14Z",
+  "format": "JSON Lines UTF-8, un enregistrement par ligne, trié par id croissant",
+  "source_details": {
+    "Users.xml": {
+      "rows": 11961,
+      "sha256": "feae4247130ee286d330ad31fb2ef15fa4e43596ceaab52295e4b47961ebe511"
+    },
+    "Posts.xml": {
+      "rows": 3900,
+      "sha256": "80b99616ba3580bbf9e0d0aea3e0ba37ba1be18a41d0ab6a04739a90fb87db6d"
+    },
+    "Comments.xml": {
+      "rows": 4440,
+      "sha256": "b2c0c8a19a0f92a60d41fec946444e135150bed8e4b340286dc5238a9810ae79"
+    },
+    "Tags.xml": {
+      "rows": 214,
+      "sha256": "c42f4830e7b4c425e9bb590d3bb462a82a612413b978ebf55f0f5cc0f8f357fd"
+    }
+  },
+  "entities": {
+    "users": {
+      "file": "users.jsonl",
+      "schema": "schemas/users.schema.json",
+      "count": 11961,
+      "sha256": "e33bd3ade8a5cd02a18d5b9e5d5e9c200ce74f0503818f4a498b89e1e64ad73b",
+      "non_null": {
+        "id": 11961,
+        "account_id": 11960,
+        "display_name": 11961,
+        "reputation": 11961,
+        "creation_date": 11961,
+        "last_access_date": 11961,
+        "location": 6000,
+        "about_me": 4752,
+        "views": 11961,
+        "up_votes": 11961,
+        "down_votes": 11961,
+        "age": 3500,
+        "profile_image_url": 11273,
+        "website_url": 2635
+      }
+    },
+    "posts": {
+      "file": "posts.jsonl",
+      "schema": "schemas/posts.schema.json",
+      "count": 3900,
+      "sha256": "946e12dc871e4a438f7eac424b3e81d49ad2616bd36fb19afe745d9bf6618d33",
+      "non_null": {
+        "id": 3900,
+        "post_type_id": 3900,
+        "parent_id": 2183,
+        "accepted_answer_id": 563,
+        "owner_user_id": 3889,
+        "owner_display_name": 9,
+        "last_editor_user_id": 1748,
+        "last_editor_display_name": 8,
+        "title": 1444,
+        "body": 3900,
+        "tags": 1444,
+        "score": 3900,
+        "view_count": 1444,
+        "answer_count": 1444,
+        "comment_count": 3900,
+        "favorite_count": 639,
+        "creation_date": 3900,
+        "last_edit_date": 1754,
+        "last_activity_date": 3900,
+        "closed_date": 84
+      }
+    },
+    "comments": {
+      "file": "comments.jsonl",
+      "schema": "schemas/comments.schema.json",
+      "count": 4440,
+      "sha256": "8f8df10e04e4698715a2fd204608ef1d8582afc707cf826be02533db7a5057ed",
+      "non_null": {
+        "id": 4440,
+        "post_id": 4440,
+        "user_id": 4430,
+        "user_display_name": 10,
+        "score": 4440,
+        "text": 4440,
+        "creation_date": 4440
+      }
+    },
+    "tags": {
+      "file": "tags.jsonl",
+      "schema": "schemas/tags.schema.json",
+      "count": 214,
+      "sha256": "beb96f1b6026d4899dc9532d996224265ec96ce50ea84ad8b6646b08b41276ef",
+      "non_null": {
+        "id": 214,
+        "tag_name": 214,
+        "count": 214,
+        "excerpt_post_id": 127,
+        "wiki_post_id": 127
+      }
+    }
+  }
+}

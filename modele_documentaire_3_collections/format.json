@@ -1,0 +1,1021 @@
+{
+  "base": "stack_exchange_3col",
+  "collections": {
+    "users": {
+      "description": "Un document par utilisateur (Users.xml).",
+      "_id": "Id de l'utilisateur (Users.xml / Id)",
+      "nombre": 11961,
+      "champs": [
+        {
+          "champ": "_id",
+          "type": "int",
+          "source_xml": "Users.xml / Id",
+          "description": "Identifiant de l'utilisateur sur le site (-1 = compte système Community)",
+          "obligatoire": true
+        },
+        {
+          "champ": "account_id",
+          "type": "int",
+          "source_xml": "Users.xml / AccountId",
+          "description": "Identifiant global du compte sur tout le réseau Stack Exchange",
+          "obligatoire": false
+        },
+        {
+          "champ": "display_name",
+          "type": "string",
+          "source_xml": "Users.xml / DisplayName",
+          "description": "Nom affiché",
+          "obligatoire": true
+        },
+        {
+          "champ": "reputation",
+          "type": "int",
+          "source_xml": "Users.xml / Reputation",
+          "description": "Score de réputation",
+          "obligatoire": true
+        },
+        {
+          "champ": "views",
+          "type": "int",
+          "source_xml": "Users.xml / Views",
+          "description": "Nombre de consultations du profil",
+          "obligatoire": true
+        },
+        {
+          "champ": "up_votes",
+          "type": "int",
+          "source_xml": "Users.xml / UpVotes",
+          "description": "Nombre de votes positifs émis",
+          "obligatoire": true
+        },
+        {
+          "champ": "down_votes",
+          "type": "int",
+          "source_xml": "Users.xml / DownVotes",
+          "description": "Nombre de votes négatifs émis",
+          "obligatoire": true
+        },
+        {
+          "champ": "creation_date",
+          "type": "date",
+          "source_xml": "Users.xml / CreationDate",
+          "description": "Date de création du compte",
+          "obligatoire": true
+        },
+        {
+          "champ": "last_access_date",
+          "type": "date",
+          "source_xml": "Users.xml / LastAccessDate",
+          "description": "Dernier chargement d'une page du site",
+          "obligatoire": true
+        },
+        {
+          "champ": "location",
+          "type": "string",
+          "source_xml": "Users.xml / Location",
+          "description": "Localisation déclarée",
+          "obligatoire": false
+        },
+        {
+          "champ": "age",
+          "type": "int",
+          "source_xml": "Users.xml / Age",
+          "description": "Âge déclaré",
+          "obligatoire": false
+        },
+        {
+          "champ": "about_me",
+          "type": "string",
+          "source_xml": "Users.xml / AboutMe",
+          "description": "Présentation du profil (HTML)",
+          "obligatoire": false
+        },
+        {
+          "champ": "website_url",
+          "type": "string",
+          "source_xml": "Users.xml / WebsiteUrl",
+          "description": "URL du site web du profil",
+          "obligatoire": false
+        },
+        {
+          "champ": "profile_image_url",
+          "type": "string",
+          "source_xml": "Users.xml / ProfileImageUrl",
+          "description": "URL de l'image de profil",
+          "obligatoire": false
+        }
+      ]
+    },
+    "posts": {
+      "description": "Un document par post de premier niveau : questions (type 1) et pages (types 4, 5, 7). Les réponses (type 2) sont imbriquées dans leur question, les commentaires dans leur post.",
+      "_id": "Id du post (Posts.xml / Id)",
+      "nombre": 1717,
+      "champs": [
+        {
+          "champ": "_id",
+          "type": "int",
+          "source_xml": "Posts.xml / Id",
+          "description": "Identifiant du post",
+          "obligatoire": true
+        },
+        {
+          "champ": "post_type_id",
+          "type": "int",
+          "source_xml": "Posts.xml / PostTypeId",
+          "description": "Type : 1 question, 2 réponse, 4 extrait de tag, 5 wiki de tag, 7 page d'aide",
+          "obligatoire": true
+        },
+        {
+          "champ": "title",
+          "type": "string",
+          "source_xml": "Posts.xml / Title",
+          "description": "Titre (questions uniquement)",
+          "obligatoire": false
+        },
+        {
+          "champ": "body",
+          "type": "string",
+          "source_xml": "Posts.xml / Body",
+          "description": "Contenu en HTML rendu",
+          "obligatoire": true
+        },
+        {
+          "champ": "tags",
+          "type": "array<string>",
+          "source_xml": "Posts.xml / Tags",
+          "description": "Tags de la question, liste ordonnée (XML : \"<a><b>\")",
+          "obligatoire": false
+        },
+        {
+          "champ": "score",
+          "type": "int",
+          "source_xml": "Posts.xml / Score",
+          "description": "Score (votes positifs - votes négatifs)",
+          "obligatoire": true
+        },
+        {
+          "champ": "view_count",
+          "type": "int",
+          "source_xml": "Posts.xml / ViewCount",
+          "description": "Nombre de vues (questions uniquement)",
+          "obligatoire": false
+        },
+        {
+          "champ": "answer_count",
+          "type": "int",
+          "source_xml": "Posts.xml / AnswerCount",
+          "description": "Nombre de réponses (questions uniquement)",
+          "obligatoire": false
+        },
+        {
+          "champ": "comment_count",
+          "type": "int",
+          "source_xml": "Posts.xml / CommentCount",
+          "description": "Nombre de commentaires",
+          "obligatoire": true
+        },
+        {
+          "champ": "favorite_count",
+          "type": "int",
+          "source_xml": "Posts.xml / FavoriteCount",
+          "description": "Ancien compteur de favoris",
+          "obligatoire": false
+        },
+        {
+          "champ": "owner",
+          "type": "object",
+          "obligatoire": false,
+          "source_xml": "—",
+          "description": "Auteur : identifiant (référence users._id) ou, si le compte a été supprimé, nom seul"
+        },
+        {
+          "champ": "owner.user_id",
+          "type": "int",
+          "source_xml": "Posts.xml / OwnerUserId",
+          "description": "Auteur (référence users._id) ; absent si le compte a été supprimé",
+          "obligatoire": false
+        },
+        {
+          "champ": "owner.display_name",
+          "type": "string",
+          "source_xml": "Posts.xml / OwnerDisplayName",
+          "description": "Nom de l'auteur quand owner_user_id est absent",
+          "obligatoire": false
+        },
+        {
+          "champ": "last_editor",
+          "type": "object",
+          "obligatoire": false,
+          "source_xml": "—",
+          "description": "Dernier éditeur : identifiant (référence users._id) et/ou nom"
+        },
+        {
+          "champ": "last_editor.user_id",
+          "type": "int",
+          "source_xml": "Posts.xml / LastEditorUserId",
+          "description": "Dernier éditeur (référence users._id)",
+          "obligatoire": false
+        },
+        {
+          "champ": "last_editor.display_name",
+          "type": "string",
+          "source_xml": "Posts.xml / LastEditorDisplayName",
+          "description": "Nom du dernier éditeur quand il n'est pas identifié",
+          "obligatoire": false
+        },
+        {
+          "champ": "creation_date",
+          "type": "date",
+          "source_xml": "Posts.xml / CreationDate",
+          "description": "Date de création",
+          "obligatoire": true
+        },
+        {
+          "champ": "last_edit_date",
+          "type": "date",
+          "source_xml": "Posts.xml / LastEditDate",
+          "description": "Date de la dernière modification du contenu",
+          "obligatoire": false
+        },
+        {
+          "champ": "last_activity_date",
+          "type": "date",
+          "source_xml": "Posts.xml / LastActivityDate",
+          "description": "Date de la dernière activité",
+          "obligatoire": true
+        },
+        {
+          "champ": "closed_date",
+          "type": "date",
+          "source_xml": "Posts.xml / ClosedDate",
+          "description": "Date de fermeture de la question",
+          "obligatoire": false
+        },
+        {
+          "champ": "accepted_answer_id",
+          "type": "int",
+          "source_xml": "Posts.xml / AcceptedAnswerId",
+          "description": "Pour une question : id de la réponse acceptée",
+          "obligatoire": false
+        },
+        {
+          "champ": "comments",
+          "type": "array<object>",
+          "source_xml": "Comments.xml",
+          "description": "Commentaires du post, imbriqués par ordre chronologique (remplace Comments.PostId)",
+          "obligatoire": true
+        },
+        {
+          "champ": "comments[].comment_id",
+          "type": "int",
+          "source_xml": "Comments.xml / Id",
+          "description": "Identifiant du commentaire",
+          "obligatoire": true
+        },
+        {
+          "champ": "comments[].score",
+          "type": "int",
+          "source_xml": "Comments.xml / Score",
+          "description": "Score du commentaire",
+          "obligatoire": true
+        },
+        {
+          "champ": "comments[].creation_date",
+          "type": "date",
+          "source_xml": "Comments.xml / CreationDate",
+          "description": "Date de création",
+          "obligatoire": true
+        },
+        {
+          "champ": "comments[].text",
+          "type": "string",
+          "source_xml": "Comments.xml / Text",
+          "description": "Texte du commentaire",
+          "obligatoire": true
+        },
+        {
+          "champ": "comments[].user",
+          "type": "object",
+          "obligatoire": true,
+          "source_xml": "—",
+          "description": "Auteur du commentaire : identifiant (référence users._id) ou nom seul"
+        },
+        {
+          "champ": "comments[].user.user_id",
+          "type": "int",
+          "source_xml": "Comments.xml / UserId",
+          "description": "Auteur (référence users._id) ; absent si le compte a été supprimé",
+          "obligatoire": false
+        },
+        {
+          "champ": "comments[].user.display_name",
+          "type": "string",
+          "source_xml": "Comments.xml / UserDisplayName",
+          "description": "Nom de l'auteur quand user_id est absent",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers",
+          "type": "array<object>",
+          "source_xml": "Posts.xml (PostTypeId = 2)",
+          "description": "Réponses de la question, imbriquées par ordre chronologique (remplace Posts.ParentId) — questions seulement",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].answer_id",
+          "type": "int",
+          "source_xml": "Posts.xml / Id",
+          "description": "Identifiant du post",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].body",
+          "type": "string",
+          "source_xml": "Posts.xml / Body",
+          "description": "Contenu en HTML rendu",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].score",
+          "type": "int",
+          "source_xml": "Posts.xml / Score",
+          "description": "Score (votes positifs - votes négatifs)",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].comment_count",
+          "type": "int",
+          "source_xml": "Posts.xml / CommentCount",
+          "description": "Nombre de commentaires",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].owner",
+          "type": "object",
+          "obligatoire": false,
+          "source_xml": "—",
+          "description": "Auteur : identifiant (référence users._id) ou, si le compte a été supprimé, nom seul"
+        },
+        {
+          "champ": "answers[].owner.user_id",
+          "type": "int",
+          "source_xml": "Posts.xml / OwnerUserId",
+          "description": "Auteur (référence users._id) ; absent si le compte a été supprimé",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].owner.display_name",
+          "type": "string",
+          "source_xml": "Posts.xml / OwnerDisplayName",
+          "description": "Nom de l'auteur quand owner_user_id est absent",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].last_editor",
+          "type": "object",
+          "obligatoire": false,
+          "source_xml": "—",
+          "description": "Dernier éditeur : identifiant (référence users._id) et/ou nom"
+        },
+        {
+          "champ": "answers[].last_editor.user_id",
+          "type": "int",
+          "source_xml": "Posts.xml / LastEditorUserId",
+          "description": "Dernier éditeur (référence users._id)",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].last_editor.display_name",
+          "type": "string",
+          "source_xml": "Posts.xml / LastEditorDisplayName",
+          "description": "Nom du dernier éditeur quand il n'est pas identifié",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].creation_date",
+          "type": "date",
+          "source_xml": "Posts.xml / CreationDate",
+          "description": "Date de création",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].last_edit_date",
+          "type": "date",
+          "source_xml": "Posts.xml / LastEditDate",
+          "description": "Date de la dernière modification du contenu",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].last_activity_date",
+          "type": "date",
+          "source_xml": "Posts.xml / LastActivityDate",
+          "description": "Date de la dernière activité",
+          "obligatoire": false
+        },
+        {
+          "champ": "answers[].comments",
+          "type": "array<object>",
+          "source_xml": "Comments.xml",
+          "description": "Commentaires de la réponse, même structure que comments[]",
+          "obligatoire": false
+        }
+      ]
+    },
+    "tags": {
+      "description": "Un document par tag (Tags.xml). L'extrait et le wiki sont des posts de la collection posts, référencés.",
+      "_id": "Id du tag (Tags.xml / Id)",
+      "nombre": 214,
+      "champs": [
+        {
+          "champ": "_id",
+          "type": "int",
+          "source_xml": "Tags.xml / Id",
+          "description": "Identifiant du tag",
+          "obligatoire": true
+        },
+        {
+          "champ": "tag_name",
+          "type": "string",
+          "source_xml": "Tags.xml / TagName",
+          "description": "Nom du tag (unique)",
+          "obligatoire": true
+        },
+        {
+          "champ": "count",
+          "type": "int",
+          "source_xml": "Tags.xml / Count",
+          "description": "Nombre de questions utilisant le tag",
+          "obligatoire": true
+        },
+        {
+          "champ": "excerpt_post_id",
+          "type": "int",
+          "source_xml": "Tags.xml / ExcerptPostId",
+          "description": "Post contenant l'extrait du tag (référence posts._id)",
+          "obligatoire": false
+        },
+        {
+          "champ": "wiki_post_id",
+          "type": "int",
+          "source_xml": "Tags.xml / WikiPostId",
+          "description": "Post contenant le wiki du tag (référence posts._id)",
+          "obligatoire": false
+        }
+      ]
+    }
+  },
+  "references": [
+    {
+      "de": "posts.owner.user_id, posts.last_editor.user_id, posts.comments[].user.user_id, posts.answers[].owner.user_id, posts.answers[].last_editor.user_id, posts.answers[].comments[].user.user_id",
+      "vers": "users._id"
+    },
+    {
+      "de": "posts.tags[]",
+      "vers": "tags.tag_name"
+    },
+    {
+      "de": "tags.excerpt_post_id, tags.wiki_post_id",
+      "vers": "posts._id"
+    },
+    {
+      "de": "posts.accepted_answer_id",
+      "vers": "posts.answers[].answer_id (même document)"
+    }
+  ],
+  "index": {
+    "users": [],
+    "posts": [
+      {
+        "cles": {
+          "tags": 1
+        },
+        "nom": "questions_par_tag"
+      },
+      {
+        "cles": {
+          "owner.user_id": 1
+        },
+        "nom": "posts_par_auteur"
+      },
+      {
+        "cles": {
+          "answers.owner.user_id": 1
+        },
+        "nom": "reponses_par_auteur"
+      },
+      {
+        "cles": {
+          "post_type_id": 1
+        },
+        "nom": "posts_par_type"
+      }
+    ],
+    "tags": [
+      {
+        "cles": {
+          "tag_name": 1
+        },
+        "nom": "tag_name_unique",
+        "unique": true
+      }
+    ]
+  },
+  "validateurs": {
+    "users": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "account_id": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "display_name": {
+            "bsonType": "string"
+          },
+          "reputation": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "views": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "up_votes": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "down_votes": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "creation_date": {
+            "bsonType": "date"
+          },
+          "last_access_date": {
+            "bsonType": "date"
+          },
+          "location": {
+            "bsonType": "string"
+          },
+          "age": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "about_me": {
+            "bsonType": "string"
+          },
+          "website_url": {
+            "bsonType": "string"
+          },
+          "profile_image_url": {
+            "bsonType": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "display_name",
+          "reputation",
+          "views",
+          "up_votes",
+          "down_votes",
+          "creation_date",
+          "last_access_date"
+        ]
+      }
+    },
+    "posts": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "post_type_id": {
+            "enum": [
+              1,
+              4,
+              5,
+              7
+            ]
+          },
+          "title": {
+            "bsonType": "string"
+          },
+          "body": {
+            "bsonType": "string"
+          },
+          "tags": {
+            "bsonType": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true,
+            "items": {
+              "bsonType": "string"
+            }
+          },
+          "score": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "view_count": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "answer_count": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "comment_count": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "favorite_count": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "owner": {
+            "bsonType": "object",
+            "additionalProperties": false,
+            "properties": {
+              "user_id": {
+                "bsonType": [
+                  "int",
+                  "long"
+                ]
+              },
+              "display_name": {
+                "bsonType": "string"
+              }
+            }
+          },
+          "last_editor": {
+            "bsonType": "object",
+            "additionalProperties": false,
+            "properties": {
+              "user_id": {
+                "bsonType": [
+                  "int",
+                  "long"
+                ]
+              },
+              "display_name": {
+                "bsonType": "string"
+              }
+            }
+          },
+          "creation_date": {
+            "bsonType": "date"
+          },
+          "last_edit_date": {
+            "bsonType": "date"
+          },
+          "last_activity_date": {
+            "bsonType": "date"
+          },
+          "closed_date": {
+            "bsonType": "date"
+          },
+          "accepted_answer_id": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "comments": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "additionalProperties": false,
+              "properties": {
+                "comment_id": {
+                  "bsonType": [
+                    "int",
+                    "long"
+                  ]
+                },
+                "score": {
+                  "bsonType": [
+                    "int",
+                    "long"
+                  ]
+                },
+                "creation_date": {
+                  "bsonType": "date"
+                },
+                "text": {
+                  "bsonType": "string"
+                },
+                "user": {
+                  "bsonType": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "user_id": {
+                      "bsonType": [
+                        "int",
+                        "long"
+                      ]
+                    },
+                    "display_name": {
+                      "bsonType": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "comment_id",
+                "score",
+                "creation_date",
+                "text",
+                "user"
+              ]
+            }
+          },
+          "answers": {
+            "bsonType": "array",
+            "items": {
+              "bsonType": "object",
+              "additionalProperties": false,
+              "properties": {
+                "answer_id": {
+                  "bsonType": [
+                    "int",
+                    "long"
+                  ]
+                },
+                "body": {
+                  "bsonType": "string"
+                },
+                "score": {
+                  "bsonType": [
+                    "int",
+                    "long"
+                  ]
+                },
+                "comment_count": {
+                  "bsonType": [
+                    "int",
+                    "long"
+                  ]
+                },
+                "owner": {
+                  "bsonType": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "user_id": {
+                      "bsonType": [
+                        "int",
+                        "long"
+                      ]
+                    },
+                    "display_name": {
+                      "bsonType": "string"
+                    }
+                  }
+                },
+                "last_editor": {
+                  "bsonType": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "user_id": {
+                      "bsonType": [
+                        "int",
+                        "long"
+                      ]
+                    },
+                    "display_name": {
+                      "bsonType": "string"
+                    }
+                  }
+                },
+                "creation_date": {
+                  "bsonType": "date"
+                },
+                "last_edit_date": {
+                  "bsonType": "date"
+                },
+                "last_activity_date": {
+                  "bsonType": "date"
+                },
+                "comments": {
+                  "bsonType": "array",
+                  "items": {
+                    "bsonType": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "comment_id": {
+                        "bsonType": [
+                          "int",
+                          "long"
+                        ]
+                      },
+                      "score": {
+                        "bsonType": [
+                          "int",
+                          "long"
+                        ]
+                      },
+                      "creation_date": {
+                        "bsonType": "date"
+                      },
+                      "text": {
+                        "bsonType": "string"
+                      },
+                      "user": {
+                        "bsonType": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "user_id": {
+                            "bsonType": [
+                              "int",
+                              "long"
+                            ]
+                          },
+                          "display_name": {
+                            "bsonType": "string"
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "comment_id",
+                      "score",
+                      "creation_date",
+                      "text",
+                      "user"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "answer_id",
+                "body",
+                "score",
+                "comment_count",
+                "creation_date",
+                "last_activity_date",
+                "comments"
+              ]
+            }
+          }
+        },
+        "required": [
+          "_id",
+          "post_type_id",
+          "body",
+          "score",
+          "comment_count",
+          "creation_date",
+          "last_activity_date",
+          "comments"
+        ],
+        "oneOf": [
+          {
+            "properties": {
+              "post_type_id": {
+                "enum": [
+                  1
+                ]
+              }
+            },
+            "required": [
+              "title",
+              "tags",
+              "view_count",
+              "answer_count",
+              "answers"
+            ]
+          },
+          {
+            "properties": {
+              "post_type_id": {
+                "enum": [
+                  4,
+                  5,
+                  7
+                ]
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "title"
+                  ]
+                },
+                {
+                  "required": [
+                    "tags"
+                  ]
+                },
+                {
+                  "required": [
+                    "view_count"
+                  ]
+                },
+                {
+                  "required": [
+                    "answer_count"
+                  ]
+                },
+                {
+                  "required": [
+                    "answers"
+                  ]
+                },
+                {
+                  "required": [
+                    "accepted_answer_id"
+                  ]
+                },
+                {
+                  "required": [
+                    "closed_date"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "tags": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "additionalProperties": false,
+        "properties": {
+          "_id": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "tag_name": {
+            "bsonType": "string"
+          },
+          "count": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "excerpt_post_id": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          },
+          "wiki_post_id": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          }
+        },
+        "required": [
+          "_id",
+          "tag_name",
+          "count"
+        ]
+      }
+    }
+  },
+  "regles": [
+    "_id = identifiant d'origine du XML",
+    "attribut absent du XML -> champ absent du document ; chaîne vide \"\" conservée",
+    "dates de type Date (UTC), notées {\"$date\": \"...\"} en JSON étendu",
+    "réponses et commentaires imbriqués par ordre chronologique"
+  ]
+}

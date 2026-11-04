@@ -1,0 +1,231 @@
+=== PostgreSQL — inspecter — 21/10/2026 15:04:36 ===
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+
+Tables existantes dans le schéma public : 0
+
+Tables du schéma à créer : type_post, utilisateur, account, tag, post, question, reponse, commentaire, etiqueter
+Structures incompatibles : aucune
+
+=== PostgreSQL — charger — 21/10/2026 15:05:05 ===
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+Modèle intermédiaire lu : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml (source xml)
+Tables créées ou déjà présentes (schema.sql).
+
+Insertion (une seule transaction) :
+  utilisateur  lignes à insérer= 11961  insérées= 11961  déjà présentes=     0
+  account      lignes à insérer= 11960  insérées= 11960  déjà présentes=     0
+  tag          lignes à insérer=   214  insérées=   214  déjà présentes=     0
+  post         lignes à insérer=  3900  insérées=  3900  déjà présentes=     0
+  question     lignes à insérer=  1444  insérées=  1444  déjà présentes=     0
+  reponse      lignes à insérer=  2183  insérées=  2183  déjà présentes=     0
+  commentaire  lignes à insérer=  4440  insérées=  4440  déjà présentes=     0
+  etiqueter    lignes à insérer=  3471  insérées=  3471  déjà présentes=     0
+
+Effectifs :
+  utilisateur  attendues= 11961  PostgreSQL= 11961  OK
+  account      attendues= 11960  PostgreSQL= 11960  OK
+  tag          attendues=   214  PostgreSQL=   214  OK
+  post         attendues=  3900  PostgreSQL=  3900  OK
+  question     attendues=  1444  PostgreSQL=  1444  OK
+  reponse      attendues=  2183  PostgreSQL=  2183  OK
+  commentaire  attendues=  4440  PostgreSQL=  4440  OK
+  etiqueter    attendues=  3471  PostgreSQL=  3471  OK
+
+Modèle intermédiaire retrouvé à partir de PostgreSQL :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Contraintes (chaque tentative doit être refusée, puis annulée) :
+  OK     commentaire avec identifiant ET nom d'auteur : refusé
+  OK     réponse acceptée qui n'appartient pas à la question : refusé
+  OK     tag en position 6 : refusé
+  OK     deuxième extrait pour le même tag : refusé
+
+MIGRATION VERS POSTGRESQL VALIDÉE.
+
+=== PostgreSQL — charger — 21/10/2026 15:05:20 ===
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+Modèle intermédiaire lu : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml (source xml)
+Tables créées ou déjà présentes (schema.sql).
+
+Insertion (une seule transaction) :
+  utilisateur  lignes à insérer= 11961  insérées=     0  déjà présentes= 11961
+  account      lignes à insérer= 11960  insérées=     0  déjà présentes= 11960
+  tag          lignes à insérer=   214  insérées=     0  déjà présentes=   214
+  post         lignes à insérer=  3900  insérées=     0  déjà présentes=  3900
+  question     lignes à insérer=  1444  insérées=     0  déjà présentes=  1444
+  reponse      lignes à insérer=  2183  insérées=     0  déjà présentes=  2183
+  commentaire  lignes à insérer=  4440  insérées=     0  déjà présentes=  4440
+  etiqueter    lignes à insérer=  3471  insérées=     0  déjà présentes=  3471
+
+Effectifs :
+  utilisateur  attendues= 11961  PostgreSQL= 11961  OK
+  account      attendues= 11960  PostgreSQL= 11960  OK
+  tag          attendues=   214  PostgreSQL=   214  OK
+  post         attendues=  3900  PostgreSQL=  3900  OK
+  question     attendues=  1444  PostgreSQL=  1444  OK
+  reponse      attendues=  2183  PostgreSQL=  2183  OK
+  commentaire  attendues=  4440  PostgreSQL=  4440  OK
+  etiqueter    attendues=  3471  PostgreSQL=  3471  OK
+
+Modèle intermédiaire retrouvé à partir de PostgreSQL :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Contraintes (chaque tentative doit être refusée, puis annulée) :
+  OK     commentaire avec identifiant ET nom d'auteur : refusé
+  OK     réponse acceptée qui n'appartient pas à la question : refusé
+  OK     tag en position 6 : refusé
+  OK     deuxième extrait pour le même tag : refusé
+
+MIGRATION VERS POSTGRESQL VALIDÉE.
+
+=== PostgreSQL — exporter — 21/10/2026 15:05:36 ===
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+Modèle intermédiaire écrit dans intermediaire/postgresql
+Validation de l'IR : intermediaire/postgresql
+  [OK   ] version du schéma — 1.0
+1. Fichiers et manifest
+  [OK   ] users     effectif — 11961 lignes
+  [OK   ] users     sha256 — e33bd3ade8a5cd02…
+  [OK   ] users     valeurs non nulles par champ
+  [OK   ] posts     effectif — 3900 lignes
+  [OK   ] posts     sha256 — 946e12dc871e4a43…
+  [OK   ] posts     valeurs non nulles par champ
+  [OK   ] comments  effectif — 4440 lignes
+  [OK   ] comments  sha256 — 8f8df10e04e46987…
+  [OK   ] comments  valeurs non nulles par champ
+  [OK   ] tags      effectif — 214 lignes
+  [OK   ] tags      sha256 — beb96f1b6026d489…
+  [OK   ] tags      valeurs non nulles par champ
+2. JSON Schema (types, champs requis, valeurs nulles, règles entre champs)
+  [OK   ] users     11961 lignes conformes
+  [OK   ] posts     3900 lignes conformes
+  [OK   ] comments  4440 lignes conformes
+  [OK   ] tags      214 lignes conformes
+3. Identifiants
+  [OK   ] users     id uniques et triés
+  [OK   ] posts     id uniques et triés
+  [OK   ] comments  id uniques et triés
+  [OK   ] tags      id uniques et triés
+  [OK   ] tags      tag_name unique
+4. Références entre entités
+  [OK   ] posts.owner_user_id -> référence existante
+  [OK   ] posts.last_editor_user_id -> référence existante
+  [OK   ] comments.user_id -> référence existante
+  [OK   ] comments.post_id -> référence existante
+  [OK   ] tags.excerpt_post_id -> référence existante
+  [OK   ] tags.wiki_post_id -> référence existante
+  [OK   ] posts.tags[] -> référence existante
+  [OK   ] posts.parent_id (question) -> référence existante
+  [OK   ] posts.accepted_answer_id -> réponse de cette question
+IR VALIDE.
+
+=== PostgreSQL — inspecter — 29/10/2026 16:57:35 ===
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+
+Tables existantes dans le schéma public : 8
+  account : 11960 lignes ; colonnes : id_account, user_id
+      contraintes : account_id_account_not_null (n), account_user_id_not_null (n), account_pkey (PK), account_user_id_key (UNIQUE), account_user_id_fkey (FK)
+  commentaire : 4440 lignes ; colonnes : comment_id, comment_text, comment_score, comment_creation_date, user_display_name, post_id, user_id
+      contraintes : auteur_id_ou_nom_exclusif (CHECK), commentaire_comment_id_not_null (n), commentaire_comment_text_not_null (n), commentaire_comment_score_not_null (n), commentaire_comment_creation_date_not_null (n), commentaire_post_id_not_null (n), commentaire_pkey (PK), commentaire_post_id_fkey (FK), commentaire_user_id_fkey (FK)
+  etiqueter : 3471 lignes ; colonnes : tag_id, post_id, position
+      contraintes : etiqueter_position_check (CHECK), etiqueter_tag_id_not_null (n), etiqueter_post_id_not_null (n), etiqueter_position_not_null (n), etiqueter_pkey (PK), etiqueter_post_id_position_key (UNIQUE), etiqueter_tag_id_fkey (FK), etiqueter_post_id_fkey (FK)
+  post : 3900 lignes ; colonnes : post_id, body, post_score, comment_count, post_creation_date, last_edit_date, last_activity_date, last_editor_display_name, owner_display_name, post_type_id, user_id, editor_user_id, extrait_de_tag_id, wiki_de_tag_id
+      contraintes : post_comment_count_check (CHECK), auteur_id_ou_nom (CHECK), post_post_id_not_null (n), post_body_not_null (n), post_post_score_not_null (n), post_comment_count_not_null (n), post_post_creation_date_not_null (n), post_last_activity_date_not_null (n), post_type_id_not_null (n), post_pkey (PK), post_extrait_de_tag_id_key (UNIQUE), post_wiki_de_tag_id_key (UNIQUE), post_user_id_fkey (FK), post_editor_user_id_fkey (FK), post_extrait_de_tag_id_fkey (FK), post_wiki_de_tag_id_fkey (FK), post_type_id_valide (CHECK)
+  question : 1444 lignes ; colonnes : post_id, title, view_count, answer_count, favorite_count, closed_date, accepted_answer_id
+      contraintes : question_answer_count_not_null (n), question_pkey (PK), question_view_count_check (CHECK), question_answer_count_check (CHECK), question_favorite_count_check (CHECK), question_post_id_not_null (n), question_title_not_null (n), question_view_count_not_null (n), question_post_id_fkey (FK), reponse_acceptee_de_la_question (FK)
+  reponse : 2183 lignes ; colonnes : post_id, question_id
+      contraintes : reponse_post_id_not_null (n), reponse_question_id_not_null (n), reponse_pkey (PK), reponse_post_id_question_id_key (UNIQUE), reponse_post_id_fkey (FK), reponse_question_id_fkey (FK)
+  tag : 214 lignes ; colonnes : tag_id, tag_name, tag_count
+      contraintes : tag_tag_count_check (CHECK), tag_tag_id_not_null (n), tag_tag_name_not_null (n), tag_tag_count_not_null (n), tag_pkey (PK), tag_tag_name_key (UNIQUE)
+  utilisateur : 11961 lignes ; colonnes : user_id, display_name, reputation, user_creation_date, last_access_date, location, about_me, views, up_votes, down_votes, age, profile_image_url, website_url
+      contraintes : utilisateur_reputation_check (CHECK), utilisateur_views_check (CHECK), utilisateur_up_votes_check (CHECK), utilisateur_down_votes_check (CHECK), utilisateur_user_id_not_null (n), utilisateur_display_name_not_null (n), utilisateur_reputation_not_null (n), utilisateur_user_creation_date_not_null (n), utilisateur_last_access_date_not_null (n), utilisateur_views_not_null (n), utilisateur_up_votes_not_null (n), utilisateur_down_votes_not_null (n), utilisateur_pkey (PK)
+
+Tables du schéma à créer : aucune
+Structures incompatibles : aucune
+
+=== PostgreSQL — charger — 29/10/2026 16:57:35 ===
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+Modèle intermédiaire lu : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml (source xml)
+Tables créées ou déjà présentes (schema.sql).
+
+Insertion (une seule transaction) :
+  utilisateur  lignes à insérer= 11961  insérées=     0  déjà présentes= 11961
+  account      lignes à insérer= 11960  insérées=     0  déjà présentes= 11960
+  tag          lignes à insérer=   214  insérées=     0  déjà présentes=   214
+  post         lignes à insérer=  3900  insérées=     0  déjà présentes=  3900
+  question     lignes à insérer=  1444  insérées=     0  déjà présentes=  1444
+  reponse      lignes à insérer=  2183  insérées=     0  déjà présentes=  2183
+  commentaire  lignes à insérer=  4440  insérées=     0  déjà présentes=  4440
+  etiqueter    lignes à insérer=  3471  insérées=     0  déjà présentes=  3471
+
+Effectifs :
+  utilisateur  attendues= 11961  PostgreSQL= 11961  OK
+  account      attendues= 11960  PostgreSQL= 11960  OK
+  tag          attendues=   214  PostgreSQL=   214  OK
+  post         attendues=  3900  PostgreSQL=  3900  OK
+  question     attendues=  1444  PostgreSQL=  1444  OK
+  reponse      attendues=  2183  PostgreSQL=  2183  OK
+  commentaire  attendues=  4440  PostgreSQL=  4440  OK
+  etiqueter    attendues=  3471  PostgreSQL=  3471  OK
+
+Modèle intermédiaire retrouvé à partir de PostgreSQL :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Contraintes (chaque tentative doit être refusée, puis annulée) :
+  OK     commentaire avec identifiant ET nom d'auteur : refusé
+  OK     réponse acceptée qui n'appartient pas à la question : refusé
+  OK     tag en position 6 : refusé
+  OK     deuxième extrait pour le même tag : refusé
+
+MIGRATION VERS POSTGRESQL VALIDÉE.
+
+=== PostgreSQL — exporter — 29/10/2026 16:57:49 ===
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+Modèle intermédiaire écrit dans C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\postgresql
+Validation de l'IR : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\postgresql
+  [OK   ] version du schéma — 1.0
+1. Fichiers et manifest
+  [OK   ] users     effectif — 11961 lignes
+  [OK   ] users     sha256 — e33bd3ade8a5cd02…
+  [OK   ] users     valeurs non nulles par champ
+  [OK   ] posts     effectif — 3900 lignes
+  [OK   ] posts     sha256 — 946e12dc871e4a43…
+  [OK   ] posts     valeurs non nulles par champ
+  [OK   ] comments  effectif — 4440 lignes
+  [OK   ] comments  sha256 — 8f8df10e04e46987…
+  [OK   ] comments  valeurs non nulles par champ
+  [OK   ] tags      effectif — 214 lignes
+  [OK   ] tags      sha256 — beb96f1b6026d489…
+  [OK   ] tags      valeurs non nulles par champ
+2. JSON Schema (types, champs requis, valeurs nulles, règles entre champs)
+  [OK   ] users     11961 lignes conformes
+  [OK   ] posts     3900 lignes conformes
+  [OK   ] comments  4440 lignes conformes
+  [OK   ] tags      214 lignes conformes
+3. Identifiants
+  [OK   ] users     id uniques et triés
+  [OK   ] posts     id uniques et triés
+  [OK   ] comments  id uniques et triés
+  [OK   ] tags      id uniques et triés
+  [OK   ] tags      tag_name unique
+4. Références entre entités
+  [OK   ] posts.owner_user_id -> référence existante
+  [OK   ] posts.last_editor_user_id -> référence existante
+  [OK   ] comments.user_id -> référence existante
+  [OK   ] comments.post_id -> référence existante
+  [OK   ] tags.excerpt_post_id -> référence existante
+  [OK   ] tags.wiki_post_id -> référence existante
+  [OK   ] posts.tags[] -> référence existante
+  [OK   ] posts.parent_id (question) -> référence existante
+  [OK   ] posts.accepted_answer_id -> réponse de cette question
+IR VALIDE.
+

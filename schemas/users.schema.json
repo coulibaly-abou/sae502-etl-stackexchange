@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sae502.local/schemas/users.schema.json",
+  "title": "Modèle intermédiaire — une ligne de users.jsonl (version 1.0)",
+  "type": "object",
+  "required": [
+    "id",
+    "account_id",
+    "display_name",
+    "reputation",
+    "creation_date",
+    "last_access_date",
+    "location",
+    "about_me",
+    "views",
+    "up_votes",
+    "down_votes",
+    "age",
+    "profile_image_url",
+    "website_url"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "Identifiant de l'utilisateur sur le site (-1 = compte système Community) — XML : Users.xml / Id",
+      "type": "integer"
+    },
+    "account_id": {
+      "description": "Identifiant global du compte sur tout le réseau Stack Exchange — XML : Users.xml / AccountId",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "display_name": {
+      "description": "Nom affiché — XML : Users.xml / DisplayName",
+      "type": "string"
+    },
+    "reputation": {
+      "description": "Score de réputation — XML : Users.xml / Reputation",
+      "type": "integer",
+      "minimum": 0
+    },
+    "creation_date": {
+      "description": "Date de création du compte — XML : Users.xml / CreationDate",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$"
+    },
+    "last_access_date": {
+      "description": "Dernier chargement d'une page du site — XML : Users.xml / LastAccessDate",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$"
+    },
+    "location": {
+      "description": "Localisation déclarée — XML : Users.xml / Location",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "about_me": {
+      "description": "Présentation du profil (HTML) — XML : Users.xml / AboutMe",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "views": {
+      "description": "Nombre de consultations du profil — XML : Users.xml / Views",
+      "type": "integer",
+      "minimum": 0
+    },
+    "up_votes": {
+      "description": "Nombre de votes positifs émis — XML : Users.xml / UpVotes",
+      "type": "integer",
+      "minimum": 0
+    },
+    "down_votes": {
+      "description": "Nombre de votes négatifs émis — XML : Users.xml / DownVotes",
+      "type": "integer",
+      "minimum": 0
+    },
+    "age": {
+      "description": "Âge déclaré — XML : Users.xml / Age",
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "profile_image_url": {
+      "description": "URL de l'image de profil — XML : Users.xml / ProfileImageUrl",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "website_url": {
+      "description": "URL du site web du profil — XML : Users.xml / WebsiteUrl",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}
