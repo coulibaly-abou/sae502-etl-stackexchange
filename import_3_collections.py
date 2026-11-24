@@ -148,19 +148,13 @@ def verifier(base, attendu, ir):
     return ok
 
 
-def main():
-    dossier_ir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(DOSSIER, "intermediaire", "xml")
-    afficher(f"=== Import du {datetime.now():%d/%m/%Y %H:%M:%S} ===")
-    manifest, ir = lire_ir(dossier_ir)
-    afficher(f"Modèle intermédiaire : {dossier_ir} (source : {manifest['source']}, "
-             f"{sum(len(v) for v in ir.values())} lignes)")
+def charger(base, ir):
+    """Écrivain : IR -> collections users, posts, tags de `base`, puis validation."""
     # dates {"$date": ...} -> datetime, comme les relira MongoDB
     attendu = {n: json_util.loads(json.dumps(docs, ensure_ascii=False)) for n, docs in construire(ir).items()}
     afficher("Documents construits : " + ", ".join(f"{n} {len(d)}" for n, d in attendu.items()))
 
-    client = connecter()
-    base = client[NOM_BASE]
-    afficher(f"\nBase {NOM_BASE} :")
+    afficher(f"\nBase {base.name} :")
     collections = {n: preparer(base, n) for n in attendu}
 
     afficher("\nInsertion :")
@@ -172,7 +166,25 @@ def main():
         for _id, message in rejetes[:5]:
             afficher(f"    - {_id} : {message}")
 
-    ok = verifier(base, attendu, ir) and not tout_rejete
+    return verifier(base, attendu, ir) and not tout_rejete
+
+
+def lire_mongo(base):
+    """Lecteur : collections users, posts, tags de `base` -> IR (opération inverse de construire)."""
+    manquantes = [n for n in ("users", "posts", "tags") if n not in base.list_collection_names()]
+    if manquantes:
+        sys.exit(f"Base MongoDB {base.name} : collection(s) absente(s) {manquantes}")
+    return deplier({n: list(base[n].find({})) for n in ("users", "posts", "tags")})
+
+
+def main():
+    dossier_ir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(DOSSIER, "intermediaire", "xml")
+    afficher(f"=== Import du {datetime.now():%d/%m/%Y %H:%M:%S} ===")
+    manifest, ir = lire_ir(dossier_ir)
+    afficher(f"Modèle intermédiaire : {dossier_ir} (source : {manifest['source']}, "
+             f"{sum(len(v) for v in ir.values())} lignes)")
+    client = connecter()
+    ok = charger(client[NOM_BASE], ir)
     afficher("\nIMPORT VALIDÉ." if ok else "\nIMPORT À VÉRIFIER : voir les écarts ci-dessus.")
     client.close()
     with open(FICHIER_JOURNAL, "a", encoding="utf-8") as f:

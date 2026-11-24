@@ -26,8 +26,7 @@ from datetime import datetime
 from intermediaire import ENTITES, FORMAT_DATE, ecrire_ir, ecrire_schemas, sha256_fichier, valider_ir
 
 DOSSIER = os.path.dirname(os.path.abspath(__file__))
-DOSSIER_XML = sys.argv[1] if len(sys.argv) > 1 else DOSSIER
-DOSSIER_IR = sys.argv[2] if len(sys.argv) > 2 else os.path.join(DOSSIER, "intermediaire", "xml")
+DOSSIER_IR_DEFAUT = os.path.join(DOSSIER, "intermediaire", "xml")
 
 
 # ---------------------------------------------------------------
@@ -63,11 +62,11 @@ def vers_xml(type_champ, valeur):
 # ---------------------------------------------------------------
 # ÉTAPE 2 — Lecture d'un fichier XML
 # ---------------------------------------------------------------
-def lire_xml(entite):
+def lire_xml(entite, dossier_xml=DOSSIER):
     spec = ENTITES[entite]
     connus = {c[0] for c in spec["champs"]}
     lignes_xml, enregistrements = [], []
-    for _, element in ET.iterparse(os.path.join(DOSSIER_XML, spec["xml"]), events=("end",)):
+    for _, element in ET.iterparse(os.path.join(dossier_xml, spec["xml"]), events=("end",)):
         if element.tag != "row":
             continue
         attributs = dict(element.attrib)
@@ -83,36 +82,44 @@ def lire_xml(entite):
 # ---------------------------------------------------------------
 # ÉTAPE 3 — Aller-retour : IR -> attributs XML == XML d'origine
 # ---------------------------------------------------------------
-def verifier_aller_retour(entite, lignes_xml, enregistrements):
+def verifier_aller_retour(entite, lignes_xml, enregistrements, afficher=print):
     champs = ENTITES[entite]["champs"]
     differentes = []
     for attributs, e in zip(lignes_xml, enregistrements):
         reconstitue = {x: vers_xml(t, e[ir]) for x, ir, t, _ in champs if e[ir] is not None}
         if reconstitue != attributs:
             differentes.append(attributs["Id"])
-    print(f"  {entite:9} {len(lignes_xml):6} lignes XML, reconstituées à l'identique : "
-          f"{len(lignes_xml) - len(differentes):6}  {'OK' if not differentes else 'ÉCART ' + str(differentes[:5])}")
+    afficher(f"  {entite:9} {len(lignes_xml):6} lignes XML, reconstituées à l'identique : "
+             f"{len(lignes_xml) - len(differentes):6}  {'OK' if not differentes else 'ÉCART ' + str(differentes[:5])}")
     return not differentes
 
 
-def main():
-    print(f"Lecture des XML dans {DOSSIER_XML}")
+def lire_xml_tout(dossier_xml=DOSSIER, afficher=print):
+    """Lecteur XML -> IR en mémoire. Renvoie (ir, infos_source, aller_retour_ok)."""
+    afficher(f"Lecture des XML dans {dossier_xml}")
     donnees, infos, ok = {}, {}, True
     for entite, spec in ENTITES.items():
-        lignes_xml, enregistrements = lire_xml(entite)
+        lignes_xml, enregistrements = lire_xml(entite, dossier_xml)
         donnees[entite] = enregistrements
         infos[spec["xml"]] = {"rows": len(lignes_xml),
-                              "sha256": sha256_fichier(os.path.join(DOSSIER_XML, spec["xml"]))}
-        ok &= verifier_aller_retour(entite, lignes_xml, enregistrements)
+                              "sha256": sha256_fichier(os.path.join(dossier_xml, spec["xml"]))}
+        ok &= verifier_aller_retour(entite, lignes_xml, enregistrements, afficher)
+    return donnees, infos, ok
 
-    manifest = ecrire_ir(DOSSIER_IR, "xml", donnees, infos)
-    print(f"\nIR écrite dans {DOSSIER_IR}")
+
+def main():
+    dossier_xml = sys.argv[1] if len(sys.argv) > 1 else DOSSIER
+    dossier_ir = sys.argv[2] if len(sys.argv) > 2 else DOSSIER_IR_DEFAUT
+    donnees, infos, ok = lire_xml_tout(dossier_xml)
+
+    manifest = ecrire_ir(dossier_ir, "xml", donnees, infos)
+    print(f"\nIR écrite dans {dossier_ir}")
     for entite, m in manifest["entities"].items():
         print(f"  {m['file']:15} {m['count']:6} lignes  sha256 {m['sha256'][:16]}…")
     print("\nSchémas JSON :")
     ecrire_schemas()
     print()
-    ok &= valider_ir(DOSSIER_IR)
+    ok &= valider_ir(dossier_ir)
     sys.exit(0 if ok else 1)
 
 

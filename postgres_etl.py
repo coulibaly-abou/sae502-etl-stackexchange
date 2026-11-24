@@ -51,21 +51,39 @@ CONNEXION = {"host": "localhost", "port": "5434", "database": "Stackexchange", "
 VARIABLE_MOT_DE_PASSE = "STACKEXCHANGE_DB_PASSWORD"
 
 
-def connecter():
+def connecter(base=None, creer=False):
+    """Connexion à la base `base` (par défaut : Stackexchange). Avec creer=True, la base
+    est créée si elle n'existe pas encore ; une base existante n'est jamais modifiée ici."""
     mot_de_passe = os.environ.get(VARIABLE_MOT_DE_PASSE)
     if not mot_de_passe:
         sys.exit(f"La variable {VARIABLE_MOT_DE_PASSE} n'est pas définie.\n"
                  f"  PowerShell (session en cours) : $env:{VARIABLE_MOT_DE_PASSE} = \"votre_mot_de_passe\"\n"
                  f"  Permanent (nouveau terminal)  : setx {VARIABLE_MOT_DE_PASSE} \"votre_mot_de_passe\"")
+    params = {**CONNEXION, "database": base or CONNEXION["database"]}
     try:
-        connexion = psycopg2.connect(password=mot_de_passe, client_encoding="UTF8", **CONNEXION)
+        if creer:
+            creer_base_si_absente(params, mot_de_passe)
+        connexion = psycopg2.connect(password=mot_de_passe, client_encoding="UTF8", **params)
     except psycopg2.OperationalError as erreur:
         # le message de psycopg2 ne contient pas le mot de passe
-        sys.exit(f"Connexion impossible à {CONNEXION['database']} "
-                 f"({CONNEXION['host']}:{CONNEXION['port']}, {CONNEXION['user']}) : {str(erreur).strip()}")
-    afficher(f"Connecté à PostgreSQL {connexion.server_version // 10000} : base {CONNEXION['database']} "
-             f"({CONNEXION['host']}:{CONNEXION['port']}, utilisateur {CONNEXION['user']})")
+        sys.exit(f"Connexion impossible à {params['database']} "
+                 f"({params['host']}:{params['port']}, {params['user']}) : {str(erreur).strip()}")
+    afficher(f"Connecté à PostgreSQL {connexion.server_version // 10000} : base {params['database']} "
+             f"({params['host']}:{params['port']}, utilisateur {params['user']})")
     return connexion
+
+
+def creer_base_si_absente(params, mot_de_passe):
+    from psycopg2 import sql
+    admin = psycopg2.connect(password=mot_de_passe, **{**params, "database": "postgres"})
+    admin.autocommit = True                       # CREATE DATABASE hors transaction
+    with admin.cursor() as cur:
+        cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (params["database"],))
+        if cur.fetchone() is None:
+            cur.execute(sql.SQL("CREATE DATABASE {} ENCODING 'UTF8' TEMPLATE template0")
+                        .format(sql.Identifier(params["database"])))
+            afficher(f"Base {params['database']} créée (elle n'existait pas).")
+    admin.close()
 
 
 # ---------------------------------------------------------------

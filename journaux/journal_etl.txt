@@ -1,0 +1,306 @@
+=== Migration xml -> postgresql (04/11/2026 15:26:13) ===
+Source : xml (C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb)
+Cible  : postgresql (base Stackexchange)
+Modèle intermédiaire : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml
+
+--- 1. Extraction : source -> modèle intermédiaire ---
+Lecture des XML dans C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb
+  users      11961 lignes XML, reconstituées à l'identique :  11961  OK
+  posts       3900 lignes XML, reconstituées à l'identique :   3900  OK
+  comments    4440 lignes XML, reconstituées à l'identique :   4440  OK
+  tags         214 lignes XML, reconstituées à l'identique :    214  OK
+Effectifs extraits : users 11961, posts 3900, comments 4440, tags 214
+
+--- 2. Validation du modèle intermédiaire ---
+Validation de l'IR : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\xml
+  [OK   ] version du schéma — 1.0
+1. Fichiers et manifest
+  [OK   ] users     effectif — 11961 lignes
+  [OK   ] users     sha256 — e33bd3ade8a5cd02…
+  [OK   ] users     valeurs non nulles par champ
+  [OK   ] posts     effectif — 3900 lignes
+  [OK   ] posts     sha256 — 946e12dc871e4a43…
+  [OK   ] posts     valeurs non nulles par champ
+  [OK   ] comments  effectif — 4440 lignes
+  [OK   ] comments  sha256 — 8f8df10e04e46987…
+  [OK   ] comments  valeurs non nulles par champ
+  [OK   ] tags      effectif — 214 lignes
+  [OK   ] tags      sha256 — beb96f1b6026d489…
+  [OK   ] tags      valeurs non nulles par champ
+2. JSON Schema (types, champs requis, valeurs nulles, règles entre champs)
+  [OK   ] users     11961 lignes conformes
+  [OK   ] posts     3900 lignes conformes
+  [OK   ] comments  4440 lignes conformes
+  [OK   ] tags      214 lignes conformes
+3. Identifiants
+  [OK   ] users     id uniques et triés
+  [OK   ] posts     id uniques et triés
+  [OK   ] comments  id uniques et triés
+  [OK   ] tags      id uniques et triés
+  [OK   ] tags      tag_name unique
+4. Références entre entités
+  [OK   ] posts.owner_user_id -> référence existante
+  [OK   ] posts.last_editor_user_id -> référence existante
+  [OK   ] comments.user_id -> référence existante
+  [OK   ] comments.post_id -> référence existante
+  [OK   ] tags.excerpt_post_id -> référence existante
+  [OK   ] tags.wiki_post_id -> référence existante
+  [OK   ] posts.tags[] -> référence existante
+  [OK   ] posts.parent_id (question) -> référence existante
+  [OK   ] posts.accepted_answer_id -> réponse de cette question
+IR VALIDE.
+
+--- 3. Chargement : modèle intermédiaire -> postgresql ---
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+Tables créées ou déjà présentes (schema.sql).
+
+Insertion (une seule transaction) :
+  utilisateur  lignes à insérer= 11961  insérées=     0  déjà présentes= 11961
+  account      lignes à insérer= 11960  insérées=     0  déjà présentes= 11960
+  tag          lignes à insérer=   214  insérées=     0  déjà présentes=   214
+  post         lignes à insérer=  3900  insérées=     0  déjà présentes=  3900
+  question     lignes à insérer=  1444  insérées=     0  déjà présentes=  1444
+  reponse      lignes à insérer=  2183  insérées=     0  déjà présentes=  2183
+  commentaire  lignes à insérer=  4440  insérées=     0  déjà présentes=  4440
+  etiqueter    lignes à insérer=  3471  insérées=     0  déjà présentes=  3471
+
+Effectifs :
+  utilisateur  attendues= 11961  PostgreSQL= 11961  OK
+  account      attendues= 11960  PostgreSQL= 11960  OK
+  tag          attendues=   214  PostgreSQL=   214  OK
+  post         attendues=  3900  PostgreSQL=  3900  OK
+  question     attendues=  1444  PostgreSQL=  1444  OK
+  reponse      attendues=  2183  PostgreSQL=  2183  OK
+  commentaire  attendues=  4440  PostgreSQL=  4440  OK
+  etiqueter    attendues=  3471  PostgreSQL=  3471  OK
+
+Modèle intermédiaire retrouvé à partir de PostgreSQL :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Contraintes (chaque tentative doit être refusée, puis annulée) :
+  OK     commentaire avec identifiant ET nom d'auteur : refusé
+  OK     réponse acceptée qui n'appartient pas à la question : refusé
+  OK     tag en position 6 : refusé
+  OK     deuxième extrait pour le même tag : refusé
+
+--- 4. Relecture de la cible et comparaison avec le modèle intermédiaire ---
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+--- 5. Bilan de la migration xml -> postgresql ---
+  [OK   ] V1 Complétude                users 11961/11961, posts 3900/3900, comments 4440/4440, tags 214/214
+  [OK   ] V2 Conformité de l'IR        manifeste, JSON Schema, identifiants, références
+  [OK   ] V3 Contrôles de la cible     écrivain postgresql
+  [OK   ] V4 Fidélité (aller-retour)   IR relue = IR extraite, champ par champ
+  [OK   ] V5 Empreintes SHA-256        users e33bd3ade8a5…, posts 946e12dc871e…, comments 8f8df10e04e4…, tags beb96f1b6026…
+  [OK   ] V6 Bout en bout              IR relue = IR de référence (intermediaire\xml)
+
+MIGRATION XML -> POSTGRESQL VALIDÉE.
+
+=== Migration mongodb -> postgresql (04/11/2026 15:26:28) ===
+Source : mongodb (base stack_exchange_3col)
+Cible  : postgresql (base stackexchange_depuis_mongodb)
+Modèle intermédiaire : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\mongodb
+
+--- 1. Extraction : source -> modèle intermédiaire ---
+Effectifs extraits : users 11961, posts 3900, comments 4440, tags 214
+
+--- 2. Validation du modèle intermédiaire ---
+Validation de l'IR : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\mongodb
+  [OK   ] version du schéma — 1.0
+1. Fichiers et manifest
+  [OK   ] users     effectif — 11961 lignes
+  [OK   ] users     sha256 — e33bd3ade8a5cd02…
+  [OK   ] users     valeurs non nulles par champ
+  [OK   ] posts     effectif — 3900 lignes
+  [OK   ] posts     sha256 — 946e12dc871e4a43…
+  [OK   ] posts     valeurs non nulles par champ
+  [OK   ] comments  effectif — 4440 lignes
+  [OK   ] comments  sha256 — 8f8df10e04e46987…
+  [OK   ] comments  valeurs non nulles par champ
+  [OK   ] tags      effectif — 214 lignes
+  [OK   ] tags      sha256 — beb96f1b6026d489…
+  [OK   ] tags      valeurs non nulles par champ
+2. JSON Schema (types, champs requis, valeurs nulles, règles entre champs)
+  [OK   ] users     11961 lignes conformes
+  [OK   ] posts     3900 lignes conformes
+  [OK   ] comments  4440 lignes conformes
+  [OK   ] tags      214 lignes conformes
+3. Identifiants
+  [OK   ] users     id uniques et triés
+  [OK   ] posts     id uniques et triés
+  [OK   ] comments  id uniques et triés
+  [OK   ] tags      id uniques et triés
+  [OK   ] tags      tag_name unique
+4. Références entre entités
+  [OK   ] posts.owner_user_id -> référence existante
+  [OK   ] posts.last_editor_user_id -> référence existante
+  [OK   ] comments.user_id -> référence existante
+  [OK   ] comments.post_id -> référence existante
+  [OK   ] tags.excerpt_post_id -> référence existante
+  [OK   ] tags.wiki_post_id -> référence existante
+  [OK   ] posts.tags[] -> référence existante
+  [OK   ] posts.parent_id (question) -> référence existante
+  [OK   ] posts.accepted_answer_id -> réponse de cette question
+IR VALIDE.
+
+--- 3. Chargement : modèle intermédiaire -> postgresql ---
+Base stackexchange_depuis_mongodb créée (elle n'existait pas).
+Connecté à PostgreSQL 18 : base stackexchange_depuis_mongodb (localhost:5434, utilisateur postgres)
+Tables créées ou déjà présentes (schema.sql).
+
+Insertion (une seule transaction) :
+  utilisateur  lignes à insérer= 11961  insérées= 11961  déjà présentes=     0
+  account      lignes à insérer= 11960  insérées= 11960  déjà présentes=     0
+  tag          lignes à insérer=   214  insérées=   214  déjà présentes=     0
+  post         lignes à insérer=  3900  insérées=  3900  déjà présentes=     0
+  question     lignes à insérer=  1444  insérées=  1444  déjà présentes=     0
+  reponse      lignes à insérer=  2183  insérées=  2183  déjà présentes=     0
+  commentaire  lignes à insérer=  4440  insérées=  4440  déjà présentes=     0
+  etiqueter    lignes à insérer=  3471  insérées=  3471  déjà présentes=     0
+
+Effectifs :
+  utilisateur  attendues= 11961  PostgreSQL= 11961  OK
+  account      attendues= 11960  PostgreSQL= 11960  OK
+  tag          attendues=   214  PostgreSQL=   214  OK
+  post         attendues=  3900  PostgreSQL=  3900  OK
+  question     attendues=  1444  PostgreSQL=  1444  OK
+  reponse      attendues=  2183  PostgreSQL=  2183  OK
+  commentaire  attendues=  4440  PostgreSQL=  4440  OK
+  etiqueter    attendues=  3471  PostgreSQL=  3471  OK
+
+Modèle intermédiaire retrouvé à partir de PostgreSQL :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Contraintes (chaque tentative doit être refusée, puis annulée) :
+  OK     commentaire avec identifiant ET nom d'auteur : refusé
+  OK     réponse acceptée qui n'appartient pas à la question : refusé
+  OK     tag en position 6 : refusé
+  OK     deuxième extrait pour le même tag : refusé
+
+--- 4. Relecture de la cible et comparaison avec le modèle intermédiaire ---
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+--- 5. Bilan de la migration mongodb -> postgresql ---
+  [OK   ] V1 Complétude                users 11961/11961, posts 3900/3900, comments 4440/4440, tags 214/214
+  [OK   ] V2 Conformité de l'IR        manifeste, JSON Schema, identifiants, références
+  [OK   ] V3 Contrôles de la cible     écrivain postgresql
+  [OK   ] V4 Fidélité (aller-retour)   IR relue = IR extraite, champ par champ
+  [OK   ] V5 Empreintes SHA-256        users e33bd3ade8a5…, posts 946e12dc871e…, comments 8f8df10e04e4…, tags beb96f1b6026…
+  [OK   ] V6 Bout en bout              IR relue = IR de référence (intermediaire\xml)
+
+MIGRATION MONGODB -> POSTGRESQL VALIDÉE.
+
+=== Migration postgresql -> mongodb (04/11/2026 15:26:44) ===
+Source : postgresql (base Stackexchange)
+Cible  : mongodb (base stack_exchange_depuis_postgresql)
+Modèle intermédiaire : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\postgresql
+
+--- 1. Extraction : source -> modèle intermédiaire ---
+Connecté à PostgreSQL 18 : base Stackexchange (localhost:5434, utilisateur postgres)
+Effectifs extraits : users 11961, posts 3900, comments 4440, tags 214
+
+--- 2. Validation du modèle intermédiaire ---
+Validation de l'IR : C:\Users\15S-EQ2102NF\Documents\BUT3 SD\Mangodb\intermediaire\postgresql
+  [OK   ] version du schéma — 1.0
+1. Fichiers et manifest
+  [OK   ] users     effectif — 11961 lignes
+  [OK   ] users     sha256 — e33bd3ade8a5cd02…
+  [OK   ] users     valeurs non nulles par champ
+  [OK   ] posts     effectif — 3900 lignes
+  [OK   ] posts     sha256 — 946e12dc871e4a43…
+  [OK   ] posts     valeurs non nulles par champ
+  [OK   ] comments  effectif — 4440 lignes
+  [OK   ] comments  sha256 — 8f8df10e04e46987…
+  [OK   ] comments  valeurs non nulles par champ
+  [OK   ] tags      effectif — 214 lignes
+  [OK   ] tags      sha256 — beb96f1b6026d489…
+  [OK   ] tags      valeurs non nulles par champ
+2. JSON Schema (types, champs requis, valeurs nulles, règles entre champs)
+  [OK   ] users     11961 lignes conformes
+  [OK   ] posts     3900 lignes conformes
+  [OK   ] comments  4440 lignes conformes
+  [OK   ] tags      214 lignes conformes
+3. Identifiants
+  [OK   ] users     id uniques et triés
+  [OK   ] posts     id uniques et triés
+  [OK   ] comments  id uniques et triés
+  [OK   ] tags      id uniques et triés
+  [OK   ] tags      tag_name unique
+4. Références entre entités
+  [OK   ] posts.owner_user_id -> référence existante
+  [OK   ] posts.last_editor_user_id -> référence existante
+  [OK   ] comments.user_id -> référence existante
+  [OK   ] comments.post_id -> référence existante
+  [OK   ] tags.excerpt_post_id -> référence existante
+  [OK   ] tags.wiki_post_id -> référence existante
+  [OK   ] posts.tags[] -> référence existante
+  [OK   ] posts.parent_id (question) -> référence existante
+  [OK   ] posts.accepted_answer_id -> réponse de cette question
+IR VALIDE.
+
+--- 3. Chargement : modèle intermédiaire -> mongodb ---
+Documents construits : users 11961, posts 1717, tags 214
+
+Base stack_exchange_depuis_postgresql :
+  users  créée avec son validateur $jsonSchema
+  posts  créée avec son validateur $jsonSchema
+  tags   créée avec son validateur $jsonSchema
+
+Insertion :
+  users  insérés= 11961  déjà présents=     0  rejetés=0
+  posts  insérés=  1717  déjà présents=     0  rejetés=0
+  tags   insérés=   214  déjà présents=     0  rejetés=0
+
+Effectifs :
+  users  attendus= 11961  MongoDB= 11961  OK
+  posts  attendus=  1717  MongoDB=  1717  OK
+  tags   attendus=   214  MongoDB=   214  OK
+
+Comparaison document par document (attendu <-> MongoDB) :
+  users  absents=0  différents=0 []  en trop=0  OK
+  posts  absents=0  différents=0 []  en trop=0  OK
+  tags   absents=0  différents=0 []  en trop=0  OK
+
+Références entre collections :
+  auteurs, éditeurs -> users._id       orphelines : 0  OK
+  posts.tags[] -> tags.tag_name        orphelines : 0  OK
+  tags extrait / wiki -> posts._id     orphelines : 0  OK
+  accepted_answer_id -> answers[]      orphelines : 0  OK
+
+Modèle intermédiaire retrouvé à partir de MongoDB :
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+Test du validateur : OK (document invalide refusé)
+
+--- 4. Relecture de la cible et comparaison avec le modèle intermédiaire ---
+  users     attendues= 11961  retrouvées= 11961  manquantes=0  en trop=0  différentes=0 []  OK
+  posts     attendues=  3900  retrouvées=  3900  manquantes=0  en trop=0  différentes=0 []  OK
+  comments  attendues=  4440  retrouvées=  4440  manquantes=0  en trop=0  différentes=0 []  OK
+  tags      attendues=   214  retrouvées=   214  manquantes=0  en trop=0  différentes=0 []  OK
+
+--- 5. Bilan de la migration postgresql -> mongodb ---
+  [OK   ] V1 Complétude                users 11961/11961, posts 3900/3900, comments 4440/4440, tags 214/214
+  [OK   ] V2 Conformité de l'IR        manifeste, JSON Schema, identifiants, références
+  [OK   ] V3 Contrôles de la cible     écrivain mongodb
+  [OK   ] V4 Fidélité (aller-retour)   IR relue = IR extraite, champ par champ
+  [OK   ] V5 Empreintes SHA-256        users e33bd3ade8a5…, posts 946e12dc871e…, comments 8f8df10e04e4…, tags beb96f1b6026…
+  [OK   ] V6 Bout en bout              IR relue = IR de référence (intermediaire\xml)
+
+MIGRATION POSTGRESQL -> MONGODB VALIDÉE.
+
+
