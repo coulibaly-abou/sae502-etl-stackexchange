@@ -275,7 +275,7 @@ journaux/                 journaux d'exécution conservés (dont journal_etl.txt
 docs/rapport/             rapports : Livrable 1, Livrable 2, rapport final complet (docx et pdf)
 docs/captures/            captures des exécutions réelles (migrations, vérifications)
 docs/modelisation/        MCD, MLD, modèle intermédiaire, modèle MongoDB
-docs/poster/              poster de présentation des résultats (A3, pdf et png)
+docs/poster/              poster de présentation des résultats (A3 et A4 en pdf, png en A3)
 docs/sujet/               sujet de la SAÉ
 ```
 
